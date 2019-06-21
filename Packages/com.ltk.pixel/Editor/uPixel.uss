@@ -1,0 +1,30 @@
+.toolbar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: rgb(48, 48, 48);
+}
+
+.toolbar Label {
+    padding: 2px 4px;
+}
+
+.toolbar :hover {
+    background-color: rgb(63, 63, 63);
+}
+
+.toolbar Button {
+    width: 24px;
+    height: 24px;
+}
+
+.canvas {
+    position: absolute;
+    background-color: rgb(80, 80, 80);
+    overflow: hidden;
+}
+
+.canvas Image {
+    position: absolute;
+    border-color: rgb(0, 0, 0);
+    border-width: 1px;
+}

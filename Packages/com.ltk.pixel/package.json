@@ -1,0 +1,13 @@
+{
+    "name": "com.ltk.pixel",
+    "displayName": "uPixel",
+    "version": "0.0.1",
+    "unity": "2018.1",
+    "description": "Pixel Art Tool.",
+    "keywords": [
+        "2D",
+        "pixel",
+        "unity"
+    ],
+    "category": "Unity"
+}
