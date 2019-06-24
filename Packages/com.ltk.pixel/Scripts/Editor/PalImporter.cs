@@ -12,7 +12,7 @@ public class PalImporter : ScriptedImporter
     {
         var pal = ScriptableObject.CreateInstance<Palette>();
         var lines = File.ReadAllLines(ctx.assetPath);
-        var colors = new List<Color>();
+        var colors = new List<Color32>();
         foreach (var line in lines)
         {
             var rgb = line.Split(' ');
@@ -20,7 +20,7 @@ public class PalImporter : ScriptedImporter
             {
                 continue;
             }
-            colors.Add(new Color(float.Parse(rgb[0]) / 255, float.Parse(rgb[1]) / 255, float.Parse(rgb[2]) / 255));
+            colors.Add(new Color32(byte.Parse(rgb[0]), byte.Parse(rgb[1]), byte.Parse(rgb[2]), 255));
         }
         pal.Colors = colors.ToArray();
         int dim = Mathf.CeilToInt(Mathf.Sqrt(colors.Count));
