@@ -30,7 +30,7 @@ public class Color32Comparer : IEqualityComparer<Color32> // TODO put this in so
     }
 }
 
-public class ArraySlice
+public struct ArraySlice
 {
     public int start;
     public int count;
@@ -97,9 +97,10 @@ public class Palette : ScriptableObject
         ArraySlice[] splits = new ArraySlice[maxColorsPow2];
         splits[0].start = 0;
         splits[0].count = Colors.Length;
+        Array.Copy(Colors, colorSet, Colors.Length);
         while (buckets < maxColorsPow2)
         {
-            for (int split_idx = 0; split_idx < maxColorsPow2; ++split_idx)
+            for (int split_idx = 0; split_idx < buckets; ++split_idx)
             {
                 ArraySlice split = splits[split_idx];
                 int split_end = split.start + split.count;
@@ -109,12 +110,13 @@ public class Palette : ScriptableObject
                 int bMin = int.MaxValue, bMax = int.MinValue;
                 for (int i = split.start; i < split_end; ++i)
                 {
-                    rMin = Math.Min(colorSet[i].r, rMin);
-                    gMin = Math.Min(colorSet[i].g, gMin);
-                    bMin = Math.Min(colorSet[i].b, bMin);
-                    rMax = Math.Min(colorSet[i].r, rMax);
-                    gMax = Math.Min(colorSet[i].g, gMax);
-                    bMax = Math.Min(colorSet[i].b, bMax);
+                    Color32 col = colorSet[i];
+                    rMin = Math.Min(col.r, rMin);
+                    gMin = Math.Min(col.g, gMin);
+                    bMin = Math.Min(col.b, bMin);
+                    rMax = Math.Max(col.r, rMax);
+                    gMax = Math.Max(col.g, gMax);
+                    bMax = Math.Max(col.b, bMax);
                 }
 
                 int rRange = rMax - rMin;
@@ -123,11 +125,12 @@ public class Palette : ScriptableObject
 
                 Comparer<Color32> compare = Comparer < Color32 > .Create(new Comparison<Color32>((lhs, rhs) => lhs.b - rhs.b));
 
-                if (rRange > gRange && rRange > bRange)
+                if (rRange > gRange)
                 {
-                    compare = Comparer<Color32>.Create(new Comparison<Color32>((lhs, rhs) => lhs.r - rhs.r));
+                    if (rRange > bRange)
+                        compare = Comparer<Color32>.Create(new Comparison<Color32>((lhs, rhs) => lhs.r - rhs.r));
                 }
-                else if (gRange > rRange && gRange > bRange)
+                else if (gRange > bRange)
                 {
                     compare = Comparer<Color32>.Create(new Comparison<Color32>((lhs, rhs) => lhs.g - rhs.g));
                 }
