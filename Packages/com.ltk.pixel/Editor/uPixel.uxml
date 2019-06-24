@@ -13,6 +13,7 @@ xsi:schemaLocation="
 "
 >
     <engine:VisualElement name="canvas" class="canvas">
+        <Style path="Assets/uPixel.uss" />
         <engine:Image />
     </engine:VisualElement>
     <engine:VisualElement name="menu" class="toolbar">
@@ -21,9 +22,9 @@ xsi:schemaLocation="
         <engine:Label text="Help" />
     </engine:VisualElement>
     <engine:VisualElement name="toolbar" class="toolbar" style="width:48px">
-        <engine:Button text="B" />
-        <engine:Button text="E" />
-        <engine:Button text="L" />
-        <engine:Button text="T" />
+        <engine:Toggle name="DrawTool" text="B" />
+        <engine:Toggle text="E" />
+        <engine:Toggle text="L" />
+        <engine:Toggle text="T" />
     </engine:VisualElement>
 </engine:UXML>

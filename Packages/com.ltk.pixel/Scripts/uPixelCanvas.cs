@@ -24,6 +24,18 @@ public class uPixelCanvas : ScriptableObject
 
     }
 
+    public void RandomisePixels()
+    {
+        if (Frames[0].PaletteIndices.Length != Size.x * Size.y)
+        {
+            Frames[0].PaletteIndices = new int[Size.x * Size.y];
+        }
+        for (int i = 0; i < Frames[0].PaletteIndices.Length; i++)
+        {
+            Frames[0].PaletteIndices[i] = Random.Range(0, Palette.Colors.Length);
+        }
+    }
+
     public void ImportPng(string importPath)
     {
         var importTexture = new Texture2D(2, 2);
@@ -32,7 +44,7 @@ public class uPixelCanvas : ScriptableObject
         // Palette loads unique colors from the texture
         Palette.PopulateFromTexture(importTexture);
         // TODO for now clear the frame list down to one frame
-        Frames = new List<Frame>() {new Frame()};
+        Frames = new List<Frame>() { new Frame() };
         var thisFrame = Frames[0];
         // Now walk the texture and get the palette index for each pixel
         var pixels = importTexture.GetPixels32();
@@ -41,5 +53,19 @@ public class uPixelCanvas : ScriptableObject
         {
             thisFrame.PaletteIndices[i] = Palette.GetIndexOfColor(pixels[i]);
         }
+    }
+
+    public Texture2D ToTexture2D()
+    {
+        Texture2D t = new Texture2D(Size.x, Size.y);
+        t.filterMode = FilterMode.Point;
+        Color32[] colors = new Color32[Size.x * Size.y];
+        for (int i = 0; i < Frames[0].PaletteIndices.Length; i++)
+        {
+            colors[i] = Palette.Colors[Frames[0].PaletteIndices[i]];
+        }
+        t.SetPixels32(colors);
+        t.Apply();
+        return t;
     }
 }

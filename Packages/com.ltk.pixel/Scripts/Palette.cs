@@ -37,10 +37,19 @@ public class Palette : ScriptableObject
 
     private void OnEnable()
     {
+        if (Colors == null)
+        {
+            return;
+        }
         if (m_ColorIndexDict == null)
         {
             PopulateColorIndexDict();
         }
+    }
+
+    public void Init()
+    {
+        PopulateColorIndexDict();
     }
 
     private void PopulateColorIndexDict()

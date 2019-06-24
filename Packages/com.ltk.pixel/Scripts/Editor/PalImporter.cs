@@ -23,6 +23,7 @@ public class PalImporter : ScriptedImporter
             colors.Add(new Color32(byte.Parse(rgb[0]), byte.Parse(rgb[1]), byte.Parse(rgb[2]), 255));
         }
         pal.Colors = colors.ToArray();
+        pal.Init();
         int dim = Mathf.CeilToInt(Mathf.Sqrt(colors.Count));
         while (colors.Count < dim * dim)
         {

@@ -17,6 +17,11 @@
     height: 24px;
 }
 
+.toolbar Toggle {
+    width: 48px;
+    height: 24px;
+}
+
 .canvas {
     position: absolute;
     background-color: rgb(80, 80, 80);
