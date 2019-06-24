@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,6 +7,7 @@ using System.Text.RegularExpressions;
 public class uPixel : EditorWindow
 {
     private static string m_PackagePath;
+    private Image m_Image;
 
     [MenuItem("Window/uPixel")]
     public static void Init()
@@ -19,7 +21,7 @@ public class uPixel : EditorWindow
         Debug.Log("Test");
     }
 
-    public void OnFocus()
+    public void OnEnable()
     {
         string[] search = AssetDatabase.FindAssets("t:asmdef uPixel");
         if (search.Length > 0)
@@ -43,9 +45,21 @@ public class uPixel : EditorWindow
         var ti = AssetImporter.GetAtPath(m_PackagePath + "T_TestImage.png") as TextureImporter;
         ti.isReadable = true;
         ti.SaveAndReimport();
-        root.Q<Image>().image = AssetDatabase.LoadAssetAtPath<Texture>(m_PackagePath + "T_TestImage.png");
-        root.Q<Image>().style.width = new StyleLength(root.Q<Image>().image.width);
-        root.Q<Image>().style.height = new StyleLength(root.Q<Image>().image.height);
+
+        float minLen = Math.Min(this.position.width, this.position.height);
+        float imageSize = minLen / 2f;
+
+        m_Image = root.Q<Image>();
+        m_Image.image = AssetDatabase.LoadAssetAtPath<Texture>(m_PackagePath + "T_TestImage.png");
+        m_Image.style.width = new StyleLength(imageSize);
+        m_Image.style.height = new StyleLength(imageSize);
+        m_Image.style.left = (this.position.width - imageSize) / 2f;
+        m_Image.style.top = (this.position.height - imageSize) / 2f;
+
         root.Q(name = "canvas").AddManipulator(new CanvasManipulator());
+    }
+
+    public void OnFocus()
+    {
     }
 }
