@@ -30,8 +30,15 @@ public class Color32Comparer : IEqualityComparer<Color32> // TODO put this in so
     }
 }
 
+public class ArraySlice
+{
+    public int start;
+    public int count;
+};
+
 public class Palette : ScriptableObject
 {
+    public Color32[] ReducedColourSet;
     public Color32[] Colors;
     private Dictionary<Color32, int> m_ColorIndexDict; // just optimisation to get index for color quickly. Must be kept aligned with Colors
 
@@ -78,6 +85,88 @@ public class Palette : ScriptableObject
         this.Colors = new Color32[hashSet.Count];
         hashSet.CopyTo(Colors);
         PopulateColorIndexDict();
+    }
+
+    public void CalculateReducedPaletteSet(int maxColors)
+    {
+        int maxColorsPow2 = Mathf.FloorToInt(Mathf.Pow(2, Mathf.Ceil(Mathf.Log(maxColors, 2))));
+        int buckets = 1;
+
+        // Create an array to be split
+        Color32[] colorSet = new Color32[Colors.Length];
+        ArraySlice[] splits = new ArraySlice[maxColorsPow2];
+        splits[0].start = 0;
+        splits[0].count = Colors.Length;
+        while (buckets < maxColorsPow2)
+        {
+            for (int split_idx = 0; split_idx < maxColorsPow2; ++split_idx)
+            {
+                ArraySlice split = splits[split_idx];
+                int split_end = split.start + split.count;
+                // Determine the largest range in a color channel
+                int rMin = int.MaxValue, rMax = int.MinValue;
+                int gMin = int.MaxValue, gMax = int.MinValue;
+                int bMin = int.MaxValue, bMax = int.MinValue;
+                for (int i = split.start; i < split_end; ++i)
+                {
+                    rMin = Math.Min(colorSet[i].r, rMin);
+                    gMin = Math.Min(colorSet[i].g, gMin);
+                    bMin = Math.Min(colorSet[i].b, bMin);
+                    rMax = Math.Min(colorSet[i].r, rMax);
+                    gMax = Math.Min(colorSet[i].g, gMax);
+                    bMax = Math.Min(colorSet[i].b, bMax);
+                }
+
+                int rRange = rMax - rMin;
+                int gRange = gMax - gMin;
+                int bRange = bMax - bMin;
+
+                Comparer<Color32> compare = Comparer < Color32 > .Create(new Comparison<Color32>((lhs, rhs) => lhs.b - rhs.b));
+
+                if (rRange > gRange && rRange > bRange)
+                {
+                    compare = Comparer<Color32>.Create(new Comparison<Color32>((lhs, rhs) => lhs.r - rhs.r));
+                }
+                else if (gRange > rRange && gRange > bRange)
+                {
+                    compare = Comparer<Color32>.Create(new Comparison<Color32>((lhs, rhs) => lhs.g - rhs.g));
+                }
+
+                // sort and split
+                Array.Sort<Color32>(colorSet, split.start, split.count, compare);
+            }
+
+            buckets = buckets << 1;
+            int bucketSize = Mathf.RoundToInt(Colors.Length / buckets);
+            for (int i = 0; i < buckets; ++i)
+            {
+                splits[i].start = i * bucketSize;
+                splits[i].count = bucketSize;
+                if (splits[i].start+bucketSize > Colors.Length)
+                {
+                    splits[i].count = Colors.Length - splits[i].start;
+                }
+            }
+        }
+
+        // splits will now have an array of segments that can be averaged to get our new palette
+        ReducedColourSet = new Color32[maxColorsPow2];
+        for (int i = 0; i < maxColorsPow2; ++i)
+        {
+            ArraySlice s = splits[i];
+            int s_end = s.start + s.count;
+            int r = colorSet[s.start].r;
+            int g = colorSet[s.start].g;
+            int b = colorSet[s.start].b;
+            for (int c = s.start+1; c < s_end; ++c)
+            {
+                r += colorSet[c].r;
+                g += colorSet[c].g;
+                b += colorSet[c].b;
+            }
+
+            ReducedColourSet[i] = new Color32((byte)(r / s.count & 0xFF), (byte)(g / s.count & 0xFF), (byte)(b / s.count & 0xFF), 255);
+        }
     }
 
     public int GetIndexOfColor(Color32 color)
