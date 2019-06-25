@@ -7,11 +7,12 @@ using UnityEngine;
 public class uPixelCanvas : ScriptableObject
 {
 
-    private static readonly Vector2Int DEFAULT_SIZE = new Vector2Int(64,64);
+    private static readonly Vector2Int DEFAULT_SIZE = new Vector2Int(64, 64);
 
     public Vector2Int Size;
     public Palette Palette;
     public List<Frame> Frames;
+    public int FrameIndex;
     public Stack<UndoStep> UndoStack;
     public Stack<UndoStep> RedoStack;
 
