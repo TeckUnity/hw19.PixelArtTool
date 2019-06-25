@@ -6,6 +6,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class uPixelCanvas : ScriptableObject
 {
+
+    private static readonly Vector2Int DEFAULT_SIZE = new Vector2Int(64,64);
+
     public Vector2Int Size;
     public Palette Palette;
     public List<Frame> Frames;
@@ -15,13 +18,32 @@ public class uPixelCanvas : ScriptableObject
     [System.Serializable]
     public class Frame
     {
+        private uPixelCanvas m_parentCanvas;
         public int[] PaletteIndices;
+
+        public Frame(uPixelCanvas parentCanvas)
+        {
+            m_parentCanvas = parentCanvas;
+            PaletteIndices = new int[m_parentCanvas.Size.x * m_parentCanvas.Size.y];
+        }
+
     }
 
     [System.Serializable]
     public class UndoStep
     {
 
+    }
+
+    public uPixelCanvas()
+    {
+        Size = DEFAULT_SIZE;
+        ResetFrames();
+    }
+
+    public void ResetFrames()
+    {
+        Frames = new List<Frame>() { new Frame(this) };
     }
 
     public void RandomisePixels()
@@ -44,7 +66,7 @@ public class uPixelCanvas : ScriptableObject
         // Palette loads unique colors from the texture
         Palette.PopulateFromTexture(importTexture);
         // TODO for now clear the frame list down to one frame
-        Frames = new List<Frame>() { new Frame() };
+        Frames = new List<Frame>() { new Frame(this) };
         var thisFrame = Frames[0];
         // Now walk the texture and get the palette index for each pixel
         var pixels = importTexture.GetPixels32();
@@ -59,13 +81,18 @@ public class uPixelCanvas : ScriptableObject
     {
         Texture2D t = new Texture2D(Size.x, Size.y);
         t.filterMode = FilterMode.Point;
-        Color32[] colors = new Color32[Size.x * Size.y];
-        for (int i = 0; i < Frames[0].PaletteIndices.Length; i++)
+        // Sanity check we have at least one frame and a palette
+        if (Frames.Count > 0 && Palette != null)
         {
-            colors[i] = Palette.Colors[Frames[0].PaletteIndices[i]];
+            Color32[] colors = t.GetPixels32();
+            for (int i = 0; i < Frames[0].PaletteIndices.Length; i++)
+            {
+                colors[i] = Palette.Colors[Frames[0].PaletteIndices[i]];
+            }
+
+            t.SetPixels32(colors);
+            t.Apply();
         }
-        t.SetPixels32(colors);
-        t.Apply();
         return t;
     }
 }
