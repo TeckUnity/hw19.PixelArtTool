@@ -3,6 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public abstract class uPixelCanvasOpBase
+{
+    public abstract void Execute(uPixelCanvas canvas);
+
+    public bool includesSnapshot;
+}
+
+public class ChangePixel : uPixelCanvasOpBase
+{
+    public int frame;
+    public byte value;
+    public Vector2Int position;
+
+    public override void Execute(uPixelCanvas canvas)
+    {
+        int index = (position.y * canvas.Size.x) + position.x;
+        canvas.Frames[frame].PaletteIndices[index] = value;
+    }
+}
+
 [CreateAssetMenu]
 public class uPixelCanvas : ScriptableObject
 {
@@ -13,8 +34,11 @@ public class uPixelCanvas : ScriptableObject
     public Palette Palette;
     public List<Frame> Frames;
     public int FrameIndex;
-    public Stack<UndoStep> UndoStack;
-    public Stack<UndoStep> RedoStack;
+    public int CanvasOpsTip;
+    public List<uPixelCanvasOpBase> CanvasOps;
+    // Can these be removed?
+    //public Stack<UndoStep> UndoStack;
+    //public Stack<UndoStep> RedoStack;
 
     [System.Serializable]
     public class Frame
@@ -30,11 +54,11 @@ public class uPixelCanvas : ScriptableObject
 
     }
 
-    [System.Serializable]
-    public class UndoStep
-    {
-
-    }
+    //[System.Serializable]
+    //public class UndoStep
+    //{
+    //
+    //}
 
     public uPixelCanvas()
     {
@@ -100,5 +124,48 @@ public class uPixelCanvas : ScriptableObject
             t.Apply();
         }
         return t;
+    }
+
+    private void ExecuteCanvasOps(int startIndex, int endIndex)
+    {
+        // TODO: Jump to newest SnapShot/Keyframe
+        int OpCount = CanvasOps.Count;
+        for (int i = startIndex; i < OpCount && i < endIndex; ++i)
+        {
+            CanvasOps[i].Execute(this);
+        }
+    }
+
+    public void DoCanvasOperation(uPixelCanvasOpBase op)
+    {
+        // if a Redo history exists, calling this destroys this
+        if (CanvasOps.Count > CanvasOpsTip)
+        {
+            CanvasOps.RemoveRange(CanvasOpsTip, CanvasOps.Count - CanvasOpsTip);
+        }
+        CanvasOps.Add(op);
+        ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip+1);
+        CanvasOpsTip += 1;
+    }
+
+    public void UndoCanvasOperations(int count)
+    {
+        //Clear the data
+        ResetFrames();
+        // Re-run frames to return to the old state
+        CanvasOpsTip -= count;
+        // Don't remove the CanvasOps just yet. Wait until a new op is run
+        ExecuteCanvasOps(0, CanvasOpsTip);
+    }
+
+    public void RedoCanvasOperations(int count)
+    {
+        if (CanvasOps.Count == CanvasOpsTip)
+        {
+            // Nothing left to do.
+            return;
+        }
+        ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip + count);
+        CanvasOpsTip += count;
     }
 }
