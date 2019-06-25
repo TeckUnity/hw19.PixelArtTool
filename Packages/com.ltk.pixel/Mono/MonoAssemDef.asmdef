@@ -1,0 +1,14 @@
+{
+    "name": "MonoAssemDef",
+    "references": [
+        "GUID:d46425961e685264eb37aec09ddb1e83"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
