@@ -25,6 +25,6 @@ xsi:schemaLocation="
         <engine:Toggle name="DrawTool" text="B" />
         <engine:Toggle text="E" />
         <engine:Toggle text="L" />
-        <engine:Toggle text="T" />
+        <engine:Toggle text="M" />
     </engine:VisualElement>
 </engine:UXML>

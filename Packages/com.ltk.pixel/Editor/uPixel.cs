@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,6 +10,59 @@ using UnityEditor.ShortcutManagement;
 
 public class uPixel : EditorWindow
 {
+    public class Buffer
+    {
+        public Vector2Int Size;
+        public int[] Indices;
+        public bool isDirty;
+
+        public Buffer(uPixelCanvas pixelAsset)
+        {
+            Size = pixelAsset.Size;
+            Indices = new int[Size.x * Size.y];
+            Clear();
+        }
+
+        private bool IsValidCoord(Vector2Int coord)
+        {
+            return coord.x >= 0 && coord.x < Size.x && coord.y >= 0 && coord.y < Size.y;
+        }
+
+        public void Clear()
+        {
+            for (int i = 0; i < Indices.Length; i++)
+            {
+                Indices[i] = -1;
+            }
+            isDirty = true;
+        }
+
+        public void Flush(ref int[] paletteIndices)
+        {
+            for (int i = 0; i < paletteIndices.Length; i++)
+            {
+                // TODO: reference canvas' current frame property when available
+                paletteIndices[i] = Indices[i] < 0 ? paletteIndices[i] : Indices[i];
+            }
+            Clear();
+        }
+
+        public Vector2Int GetCoord(int index)
+        {
+            return new Vector2Int(Indices[index % Size.x], Indices[index / Size.x]);
+        }
+
+        public void SetPixel(Vector2Int coord, int paletteIndex)
+        {
+            if (!IsValidCoord(coord))
+            {
+                return;
+            }
+            Indices[coord.x + coord.y * Size.x] = paletteIndex;
+            isDirty = true;
+        }
+    }
+
     private static uPixel window;
     private static string m_PackagePath;
     private static uPixelCanvas pixelAsset;
@@ -17,11 +71,56 @@ public class uPixel : EditorWindow
     private static Manipulator m_Manipulator;
     private Image m_Image;
     private List<Toggle> m_Tools = new List<Toggle>();
+    private Buffer m_DrawBuffer;
+    private Buffer m_OverlayBuffer;
+    private int paletteIndex;
+
+    private bool isDirty;
 
     [MenuItem("Window/uPixel")]
     public static void Init()
     {
         Init(null);
+    }
+
+    public void ClearBuffer()
+    {
+        m_DrawBuffer.Clear();
+        SetDirty(true);
+    }
+
+    public void DrawBuffer(Vector2Int coord)
+    {
+        m_DrawBuffer.SetPixel(coord, paletteIndex);
+        SetDirty(true);
+    }
+
+    public void FlushBuffer()
+    {
+        m_DrawBuffer.Flush(ref pixelAsset.Frames[0].PaletteIndices);
+        SetDirty(true);
+    }
+
+    public void SetDirty(bool _dirty)
+    {
+        isDirty = _dirty;
+    }
+
+    void Update()
+    {
+        if (!isDirty)
+        {
+            return;
+        }
+        Color32[] colors = new Color32[pixelAsset.Frames[0].PaletteIndices.Length];
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = pixelAsset.Palette.Colors[m_DrawBuffer.Indices[i] < 0 ? pixelAsset.Frames[0].PaletteIndices[i] : m_DrawBuffer.Indices[i]];
+        }
+        (m_Image.image as Texture2D).SetPixels32(colors);
+        (m_Image.image as Texture2D).Apply();
+        SetDirty(false);
+        Repaint();
     }
 
     public static void Init(uPixelCanvas _pixelAsset)
@@ -39,6 +138,7 @@ public class uPixel : EditorWindow
         if (_pixelAsset != null)
         {
             pixelAsset = _pixelAsset;
+            InitImage();
         }
     }
 
@@ -99,24 +199,49 @@ public class uPixel : EditorWindow
             m_Tools.Add(o);
         });
 
+        m_Image = m_Root.Q<Image>();
+        InitImage();
+    }
+
+    void InitImage()
+    {
+        window.m_DrawBuffer = new Buffer(pixelAsset);
+        window.m_OverlayBuffer = new Buffer(pixelAsset);
+
         float minLen = Math.Min(this.position.width, this.position.height);
         float imageSize = minLen / 2f;
 
-        m_Image = m_Root.Q<Image>();
-        Texture t = pixelAsset != null ? pixelAsset.ToTexture2D() : Selection.activeObject as uPixelCanvas ? (Selection.activeObject as uPixelCanvas).ToTexture2D() : null;
+        Texture2D t = pixelAsset != null ? pixelAsset.ToTexture2D() : Selection.activeObject as uPixelCanvas ? (Selection.activeObject as uPixelCanvas).ToTexture2D() : null;
         m_Image.image = t;
         m_Image.style.width = new StyleLength(imageSize);
         m_Image.style.height = new StyleLength(imageSize);
         m_Image.style.left = (this.position.width - imageSize) / 2f;
         m_Image.style.top = (this.position.height - imageSize) / 2f;
+        Color32[] colors = new Color32[t.width * t.height];
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = Color.clear;
+        }
+        t.SetPixels32(colors);
+    }
+
+    public void CyclePalette(int delta)
+    {
+        paletteIndex = (paletteIndex + delta + pixelAsset.Palette.Colors.Length) % pixelAsset.Palette.Colors.Length;
+        SetDirty(true);
     }
 
     void SwitchTool(MouseUpEvent e)
     {
         var toggle = e.target as Toggle;
-        foreach (var tool in m_Tools.Where(t => t != toggle))
+        Type toolType = Type.GetType(toggle.name);
+        if (m_Tool != null && m_Tool.GetType() == toolType)
         {
-            tool.value = false;
+            return;
+        }
+        foreach (var tool in m_Tools)
+        {
+            tool.value = tool == toggle;
         }
         if (m_Tool != null)
         {
@@ -124,8 +249,12 @@ public class uPixel : EditorWindow
         }
         toggle.value = true;
         toggle.Focus();
-        m_Tool = new DrawTool();
-        m_Root.Q(name: "canvas").AddManipulator(m_Tool);
+        toggle.Blur();
+        if (toolType != null)
+        {
+            m_Tool = System.Activator.CreateInstanceFrom(toolType.Assembly.CodeBase, toolType.FullName).Unwrap() as Manipulator;
+            m_Root.Q(name: "canvas").AddManipulator(m_Tool);
+        }
     }
 
     void OnUndoRedo(ExecuteCommandEvent e)

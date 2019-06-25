@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 public class PixelAssetInspector : Editor
 {
     Texture m_Texture;
+    Image m_Image;
 
     void OnEnable()
     {
@@ -19,35 +20,36 @@ public class PixelAssetInspector : Editor
     public override VisualElement CreateInspectorGUI()
     {
         VisualElement root = new VisualElement();
-        root.Bind(serializedObject);
-        SerializedProperty property = serializedObject.GetIterator();
-        if (property.NextVisible(true)) // Expand first child.
-        {
-            do
-            {
-                var field = new PropertyField(property);
-                field.name = "PropertyField:" + property.propertyPath;
+        // root.Bind(serializedObject);
+        // SerializedProperty property = serializedObject.GetIterator();
+        // if (property.NextVisible(true)) // Expand first child.
+        // {
+        //     do
+        //     {
+        //         var field = new PropertyField(property);
+        //         field.name = "PropertyField:" + property.propertyPath;
 
-                if (property.propertyPath == "m_Script" && serializedObject.targetObject != null)
-                    field.SetEnabled(false);
+        //         if (property.propertyPath == "m_Script" && serializedObject.targetObject != null)
+        //             field.SetEnabled(false);
 
-                root.Add(field);
-            }
-            while (property.NextVisible(false));
-        }
-        root.Q<VisualElement>(name: "PropertyField:Frames").RegisterCallback<MouseDownEvent>(RandomisePixels);
-        Image image = new Image();
-        image.image = m_Texture;
-        image.style.width = image.style.height = 128;
-        root.Add(image);
+        //         root.Add(field);
+        //     }
+        //     while (property.NextVisible(false));
+        // }
+        // root.Q<VisualElement>(name: "PropertyField:Frames").RegisterCallback<MouseDownEvent>(RandomisePixels);
+        m_Image = new Image();
+        m_Image.image = m_Texture;
+        m_Image.style.width = m_Image.style.height = 128;
+        m_Image.RegisterCallback<MouseDownEvent>(RandomisePixels);
+        root.Add(m_Image);
         return root;
     }
 
     void RandomisePixels(MouseDownEvent e)
     {
-        if (e.button == 1)
-        {
-            (target as uPixelCanvas).RandomisePixels();
-        }
+        var pixelAsset = target as uPixelCanvas;
+        pixelAsset.RandomisePixels();
+        m_Texture = pixelAsset.ToTexture2D();
+        m_Image.image = m_Texture;
     }
 }

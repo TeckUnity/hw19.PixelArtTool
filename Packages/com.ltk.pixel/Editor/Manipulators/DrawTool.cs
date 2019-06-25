@@ -10,9 +10,18 @@ public class DrawTool : MouseManipulator
     private Vector2 m_ClickOrigin;
     protected bool m_Active;
     protected Image Image;
+    protected uPixel uPixel;
+
+    public DrawTool()
+    {
+        activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse });
+        m_Active = false;
+        uPixel = EditorWindow.GetWindow<uPixel>();
+    }
 
     protected override void RegisterCallbacksOnTarget()
     {
+        Image = target.Q<Image>();
         target.RegisterCallback<MouseOverEvent>(OnMouseOver);
         target.RegisterCallback<MouseDownEvent>(OnMouseDown);
         target.RegisterCallback<MouseMoveEvent>(OnMouseMove);
@@ -31,7 +40,6 @@ public class DrawTool : MouseManipulator
 
     protected void OnMouseOver(MouseOverEvent e)
     {
-
     }
 
     protected void OnMouseDown(MouseDownEvent e)
@@ -47,20 +55,28 @@ public class DrawTool : MouseManipulator
             m_ClickOrigin = target.ChangeCoordinatesTo(Image, e.localMousePosition);
             m_Active = true;
             target.CaptureMouse();
+            Vector2 mousePosition = target.ChangeCoordinatesTo(Image, e.localMousePosition);
+            Vector2Int mouseCoords = new Vector2Int((int)(mousePosition.x / Image.style.width.value.value * Image.image.width), (int)(mousePosition.y / Image.style.height.value.value * Image.image.height));
+            mouseCoords.y = (Image.image.height - 1) - mouseCoords.y;
+            uPixel.DrawBuffer(mouseCoords);
             e.StopPropagation();
         }
     }
 
     protected void OnMouseMove(MouseMoveEvent e)
     {
+        Vector2 mousePosition = target.ChangeCoordinatesTo(Image, e.localMousePosition);
+        Vector2Int mouseCoords = new Vector2Int((int)(mousePosition.x / Image.style.width.value.value * Image.image.width), (int)(mousePosition.y / Image.style.height.value.value * Image.image.height));
+        mouseCoords.y = (Image.image.height - 1) - mouseCoords.y;
         if (!m_Active || !target.HasMouseCapture())
         {
-            return;
+            uPixel.ClearBuffer();
         }
-        Vector2 delta = target.ChangeCoordinatesTo(Image, e.localMousePosition) - m_ClickOrigin;
-        Image.style.left = Image.layout.xMin + delta.x;
-        Image.style.top = Image.layout.yMin + delta.y;
-        e.StopPropagation();
+        uPixel.DrawBuffer(mouseCoords);
+        if (!m_Active || !target.HasMouseCapture())
+        {
+            e.StopPropagation();
+        }
     }
 
     protected void OnMouseUp(MouseUpEvent e)
@@ -70,30 +86,19 @@ public class DrawTool : MouseManipulator
             return;
         }
         m_Active = false;
+        uPixel.FlushBuffer();
         target.ReleaseMouse();
         e.StopPropagation();
     }
 
     protected void OnMouseWheel(WheelEvent e)
     {
-        if (Image == null)
-        {
-            Image = target.Q<Image>();
-        }
+        uPixel.CyclePalette((int)Mathf.Sign(e.mouseDelta.y));
         Vector2 mousePosition = target.ChangeCoordinatesTo(Image, e.localMousePosition);
-        float wheelDelta = -Mathf.Ceil(Mathf.Abs(e.mouseDelta.y)) * Mathf.Sign(e.mouseDelta.y);
-        float aspect = Image.image.width / Image.image.height;
-        Vector2 oldSize = Image.layout.size;
-        Vector2 newSize = new Vector2(wheelDelta + Image.layout.width, wheelDelta * aspect + Image.layout.height);
-        if (newSize.x < Image.image.width || newSize.y < Image.image.height)
-        {
-            return;
-        }
-        Image.style.width = newSize.x;
-        Image.style.height = newSize.y;
-        Vector2 deltaSize = newSize - oldSize;
-        deltaSize *= mousePosition / newSize;
-        Image.style.left = Image.layout.xMin - deltaSize.x;
-        Image.style.top = Image.layout.yMin - deltaSize.y;
+        Vector2Int mouseCoords = new Vector2Int((int)(mousePosition.x / Image.style.width.value.value * Image.image.width), (int)(mousePosition.y / Image.style.height.value.value * Image.image.height));
+        mouseCoords.y = (Image.image.height - 1) - mouseCoords.y;
+        uPixel.ClearBuffer();
+        uPixel.DrawBuffer(mouseCoords);
+        e.StopPropagation();
     }
 }

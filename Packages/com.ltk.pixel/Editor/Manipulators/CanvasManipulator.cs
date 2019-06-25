@@ -95,8 +95,11 @@ public class CanvasManipulator : MouseManipulator
         {
             return;
         }
-        Image.style.width = newSize.x;
-        Image.style.height = newSize.y;
+        target.Query<Image>().ForEach((image) =>
+        {
+            image.style.width = newSize.x;
+            image.style.height = newSize.y;
+        });
         Vector2 deltaSize = newSize - oldSize;
         deltaSize *= mousePosition / newSize;
         Image.style.left = Image.layout.xMin - deltaSize.x;
