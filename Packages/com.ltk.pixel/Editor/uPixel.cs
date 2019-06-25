@@ -97,7 +97,7 @@ public class uPixel : EditorWindow
 
     public void FlushBuffer()
     {
-        m_DrawBuffer.Flush(ref pixelAsset.Frames[0].PaletteIndices);
+        m_DrawBuffer.Flush(ref pixelAsset.GetCurrentFrame().PaletteIndices);
         SetDirty(true);
     }
 
@@ -112,13 +112,14 @@ public class uPixel : EditorWindow
         {
             return;
         }
-        Color32[] colors = new Color32[pixelAsset.Frames[0].PaletteIndices.Length];
+        Color32[] colors = new Color32[pixelAsset.GetCurrentFrame().PaletteIndices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = pixelAsset.Palette.Colors[m_DrawBuffer.Indices[i] < 0 ? pixelAsset.Frames[0].PaletteIndices[i] : m_DrawBuffer.Indices[i]];
+            colors[i] = pixelAsset.Palette.Colors[m_DrawBuffer.Indices[i] < 0 ? pixelAsset.GetCurrentFrame().PaletteIndices[i] : m_DrawBuffer.Indices[i]];
         }
         (m_Image.image as Texture2D).SetPixels32(colors);
         (m_Image.image as Texture2D).Apply();
+        EditorUtility.SetDirty(pixelAsset);
         SetDirty(false);
         Repaint();
     }

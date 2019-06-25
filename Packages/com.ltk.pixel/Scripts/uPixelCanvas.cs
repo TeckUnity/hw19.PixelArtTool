@@ -42,6 +42,11 @@ public class uPixelCanvas : ScriptableObject
         ResetFrames();
     }
 
+    public Frame GetCurrentFrame()
+    {
+        return Frames[FrameIndex];
+    }
+
     public void ResetFrames()
     {
         Frames = new List<Frame>() { new Frame(this) };
@@ -49,13 +54,13 @@ public class uPixelCanvas : ScriptableObject
 
     public void RandomisePixels()
     {
-        if (Frames[0].PaletteIndices.Length != Size.x * Size.y)
+        if (GetCurrentFrame().PaletteIndices.Length != Size.x * Size.y)
         {
-            Frames[0].PaletteIndices = new int[Size.x * Size.y];
+            GetCurrentFrame().PaletteIndices = new int[Size.x * Size.y];
         }
-        for (int i = 0; i < Frames[0].PaletteIndices.Length; i++)
+        for (int i = 0; i < GetCurrentFrame().PaletteIndices.Length; i++)
         {
-            Frames[0].PaletteIndices[i] = Random.Range(0, Palette.Colors.Length);
+            GetCurrentFrame().PaletteIndices[i] = Random.Range(0, Palette.Colors.Length);
         }
     }
 
@@ -68,7 +73,7 @@ public class uPixelCanvas : ScriptableObject
         Palette.PopulateFromTexture(importTexture);
         // TODO for now clear the frame list down to one frame
         Frames = new List<Frame>() { new Frame(this) };
-        var thisFrame = Frames[0];
+        var thisFrame = GetCurrentFrame();
         // Now walk the texture and get the palette index for each pixel
         var pixels = importTexture.GetPixels32();
         thisFrame.PaletteIndices = new int[pixels.Length];
@@ -86,9 +91,9 @@ public class uPixelCanvas : ScriptableObject
         if (Frames.Count > 0 && Palette != null)
         {
             Color32[] colors = t.GetPixels32();
-            for (int i = 0; i < Frames[0].PaletteIndices.Length; i++)
+            for (int i = 0; i < GetCurrentFrame().PaletteIndices.Length; i++)
             {
-                colors[i] = Palette.Colors[Frames[0].PaletteIndices[i]];
+                colors[i] = Palette.Colors[GetCurrentFrame().PaletteIndices[i]];
             }
 
             t.SetPixels32(colors);
