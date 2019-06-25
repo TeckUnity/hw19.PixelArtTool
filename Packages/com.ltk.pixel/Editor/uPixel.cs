@@ -173,6 +173,7 @@ public class uPixel : EditorWindow
 
     void OnEnable()
     {
+        UnityEditor.Undo.postprocessModifications += OnUndoRedo;
         window = this;
         string[] search = AssetDatabase.FindAssets("t:asmdef uPixel");
         if (search.Length > 0)
@@ -258,9 +259,8 @@ public class uPixel : EditorWindow
         }
     }
 
-    void OnUndoRedo(ExecuteCommandEvent e)
+    private UndoPropertyModification[] OnUndoRedo(UndoPropertyModification[] modifications)
     {
-        // Check if undo or redo, modify undo/redo stack accordingly
-        Debug.Log(e.imguiEvent.modifiers + " " + e.imguiEvent.keyCode);
+        return modifications;
     }
 }
