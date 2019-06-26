@@ -23,7 +23,7 @@ public class CanvasHistoryCache
     public Texture2D GetHistoryPreview(uPixelCanvas canvas, int frameIndex)
     {
         int oldEntry = 0;
-        int minLRU = LRUCounter+1;
+        int minLRU = LRUCounter + 1;
         for (int i = 0; i < entries.Count; ++i)
         {
             if (entries[i].lru < minLRU)
@@ -421,7 +421,7 @@ public class uPixel : EditorWindow
     {
         if (pixelAsset == null) return;
 
-        pixelAsset.RerunHistory();
+        // pixelAsset.RerunHistory();
 
         window.m_DrawBuffer = new Buffer(pixelAsset);
         window.m_OverlayBuffer = new Buffer(pixelAsset);
@@ -448,6 +448,7 @@ public class uPixel : EditorWindow
     public void AddFrame(bool duplicate = false)
     {
         pixelAsset.AddFrame(duplicate);
+        InitImage();
     }
 
     public void NextFrame()
@@ -464,7 +465,6 @@ public class uPixel : EditorWindow
     {
         pixelAsset.FrameIndex = (index + pixelAsset.Frames.Count) % pixelAsset.Frames.Count;
         InitImage();
-        Repaint();
     }
 
     public void CyclePalette(int delta)
