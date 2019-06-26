@@ -41,7 +41,6 @@ public class uPixel : EditorWindow
         {
             for (int i = 0; i < paletteIndices.Length; i++)
             {
-                // TODO: reference canvas' current frame property when available
                 paletteIndices[i] = Indices[i] < 0 ? paletteIndices[i] : Indices[i];
             }
             Clear();
@@ -70,10 +69,12 @@ public class uPixel : EditorWindow
     private static Manipulator m_Tool;
     private static Manipulator m_Manipulator;
     private Image m_Image;
-    private List<Toggle> m_Tools = new List<Toggle>();
+    private Dictionary<Type, Manipulator> m_Tools = new Dictionary<Type, Manipulator>();
+    private List<Toggle> m_ToolButtons = new List<Toggle>();
     private Buffer m_DrawBuffer;
     private Buffer m_OverlayBuffer;
     public int paletteIndex { get; private set; }
+    private Dictionary<KeyCode, bool> keyPressed = new Dictionary<KeyCode, bool>();
 
     private bool isDirty;
 
@@ -116,6 +117,21 @@ public class uPixel : EditorWindow
         isDirty = _dirty;
     }
 
+    public bool IsValidCoord(Vector2Int coord)
+    {
+        return coord.x >= 0 && coord.x < pixelAsset.Size.x && coord.y >= 0 && coord.y < pixelAsset.Size.y;
+    }
+
+    public int GetPaletteIndex(Vector2Int coord)
+    {
+        return IsValidCoord(coord) ? pixelAsset.GetCurrentFrame().PaletteIndices[coord.x + coord.y * pixelAsset.Size.x] : paletteIndex;
+    }
+
+    public void SetPaletteIndex(int index)
+    {
+        paletteIndex = index;
+    }
+
     void Update()
     {
         if (!isDirty)
@@ -139,6 +155,10 @@ public class uPixel : EditorWindow
         if (_pixelAsset != null)
         {
             pixelAsset = _pixelAsset;
+        }
+        if (pixelAsset.Palette == null)
+        {
+            pixelAsset.Palette = AssetDatabase.LoadAssetAtPath<Palette>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:Palette").First()));
         }
         GetWindow<uPixel>("uPixel");
     }
@@ -181,6 +201,40 @@ public class uPixel : EditorWindow
         window.SwitchTool(e);
     }
 
+    [Shortcut("uPixel/Line", typeof(uPixel), KeyCode.L)]
+    static void LineShortcut()
+    {
+        MouseUpEvent e = MouseUpEvent.GetPooled();
+        e.target = m_Root.Q<Toggle>(name: "LineTool");
+        window.SwitchTool(e);
+    }
+
+    [Shortcut("uPixel/Eyedropper", typeof(uPixel), KeyCode.I)]
+    static void EyedropperShortcut()
+    {
+        MouseUpEvent e = MouseUpEvent.GetPooled();
+        e.target = m_Root.Q<Toggle>(name: "EyedropperTool");
+        window.SwitchTool(e);
+    }
+
+    [Shortcut("uPixel/Add Frame", typeof(uPixel), KeyCode.Equals, ShortcutModifiers.Shift)]
+    static void AddFrameShortcut()
+    {
+        window.AddFrame();
+    }
+
+    [Shortcut("uPixel/Next Frame", typeof(uPixel), KeyCode.RightBracket)]
+    static void NextFrameShortcut()
+    {
+        window.NextFrame();
+    }
+
+    [Shortcut("uPixel/Previous Frame", typeof(uPixel), KeyCode.LeftBracket)]
+    static void PrevFrameShortcut()
+    {
+        window.PrevFrame();
+    }
+
     void OnEnable()
     {
         UnityEditor.Undo.postprocessModifications += OnPropMod;
@@ -191,6 +245,7 @@ public class uPixel : EditorWindow
         {
             m_PackagePath = Regex.Match(AssetDatabase.GUIDToAssetPath(search[0]), ".*\\/").ToString();
         }
+        m_Tool = null;
         // Each editor window contains a root VisualElement object
         m_Root = rootVisualElement;
         m_Root.Clear();
@@ -209,8 +264,12 @@ public class uPixel : EditorWindow
         m_Root.Query<Toggle>().ForEach(o =>
         {
             o.RegisterCallback<MouseUpEvent>(SwitchTool);
-            m_Tools.Add(o);
+            m_ToolButtons.Add(o);
         });
+        m_Root.focusable = true;
+        m_Root.RegisterCallback<KeyDownEvent>(OnKeyDown);
+        m_Root.RegisterCallback<KeyUpEvent>(OnKeyUp);
+        m_Root.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 
         m_Image = m_Root.Q<Image>();
         InitImage();
@@ -219,6 +278,67 @@ public class uPixel : EditorWindow
     private void OnDisable()
     {
         UnityEditor.Undo.undoRedoPerformed -= OnUndoRedo;
+    }
+
+    void OnGeometryChanged(GeometryChangedEvent e)
+    {
+        InitImage();
+    }
+
+    void OnKeyDown(KeyDownEvent e)
+    {
+        bool pressed;
+        if (keyPressed.TryGetValue(e.keyCode, out pressed))
+        {
+            if (!pressed)
+            {
+                keyPressed[e.keyCode] = true;
+            }
+        }
+        else
+        {
+            keyPressed.Add(e.keyCode, true);
+        }
+        if (!pressed && keyPressed[e.keyCode])
+        {
+            if (e.keyCode == KeyCode.LeftControl || e.keyCode == KeyCode.RightControl)
+            {
+                if (m_Tool != null)
+                {
+                    m_Root.Q(name: "canvas").RemoveManipulator(m_Tool);
+                }
+                m_Manipulator = new EyedropperTool();
+                m_Root.Q(name: "canvas").AddManipulator(m_Manipulator);
+            }
+        }
+    }
+
+    void OnKeyUp(KeyUpEvent e)
+    {
+        // ShortcutManager eats the initial KeyDownEvent for registered keys
+        bool pressed;
+        if (keyPressed.TryGetValue(e.keyCode, out pressed))
+        {
+            if (pressed)
+            {
+                keyPressed[e.keyCode] = false;
+            }
+        }
+        else
+        {
+            keyPressed.Add(e.keyCode, false);
+        }
+        if (!keyPressed[e.keyCode])
+        {
+            if (e.keyCode == KeyCode.LeftControl || e.keyCode == KeyCode.RightControl)
+            {
+                m_Root.Q(name: "canvas").RemoveManipulator(m_Manipulator);
+                if (m_Tool != null)
+                {
+                    m_Root.Q(name: "canvas").AddManipulator(m_Tool);
+                }
+            }
+        }
     }
 
     void InitImage()
@@ -247,6 +367,28 @@ public class uPixel : EditorWindow
         t.SetPixels32(colors);
     }
 
+    public void AddFrame(bool duplicate = false)
+    {
+        pixelAsset.AddFrame(duplicate);
+    }
+
+    public void NextFrame()
+    {
+        GotoFrame(++pixelAsset.FrameIndex);
+    }
+
+    public void PrevFrame()
+    {
+        GotoFrame(--pixelAsset.FrameIndex);
+    }
+
+    public void GotoFrame(int index)
+    {
+        pixelAsset.FrameIndex = (index + pixelAsset.Frames.Count) % pixelAsset.Frames.Count;
+        InitImage();
+        Repaint();
+    }
+
     public void CyclePalette(int delta)
     {
         paletteIndex = (paletteIndex + delta + pixelAsset.Palette.Colors.Length) % pixelAsset.Palette.Colors.Length;
@@ -261,7 +403,7 @@ public class uPixel : EditorWindow
         {
             return;
         }
-        foreach (var tool in m_Tools)
+        foreach (var tool in m_ToolButtons)
         {
             tool.value = tool == toggle;
         }
@@ -271,10 +413,19 @@ public class uPixel : EditorWindow
         }
         toggle.value = true;
         toggle.Focus();
-        toggle.Blur();
+        // toggle.Blur();
         if (toolType != null)
         {
-            m_Tool = System.Activator.CreateInstanceFrom(toolType.Assembly.CodeBase, toolType.FullName).Unwrap() as Manipulator;
+            Manipulator tool;
+            if (m_Tools.TryGetValue(toolType, out tool))
+            {
+                m_Tool = m_Tools[toolType];
+            }
+            else
+            {
+                m_Tool = System.Activator.CreateInstanceFrom(toolType.Assembly.CodeBase, toolType.FullName).Unwrap() as Manipulator;
+                m_Tools.Add(toolType, m_Tool);
+            }
             m_Root.Q(name: "canvas").AddManipulator(m_Tool);
         }
     }

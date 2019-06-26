@@ -23,8 +23,8 @@ xsi:schemaLocation="
     </engine:VisualElement>
     <engine:VisualElement name="toolbar" class="toolbar" style="width:48px">
         <engine:Toggle name="DrawTool" text="B" />
-        <engine:Toggle text="E" />
-        <engine:Toggle text="L" />
+        <engine:Toggle name="EyedropperTool" text="E" />
+        <engine:Toggle name="LineTool" text="L" />
         <engine:Toggle text="M" />
     </engine:VisualElement>
 </engine:UXML>

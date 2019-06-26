@@ -90,7 +90,9 @@ public class CanvasManipulator : MouseManipulator
         float wheelDelta = -Mathf.Ceil(Mathf.Abs(e.mouseDelta.y)) * Mathf.Sign(e.mouseDelta.y);
         float aspect = Image.image.width / Image.image.height;
         Vector2 oldSize = Image.layout.size;
-        Vector2 newSize = new Vector2(wheelDelta + Image.layout.width, wheelDelta * aspect + Image.layout.height);
+        float delta = wheelDelta > 0 ? 1.25f : 0.8f;
+        // Vector2 newSize = new Vector2(wheelDelta + Image.layout.width, wheelDelta * aspect + Image.layout.height);
+        Vector2 newSize = oldSize * delta;
         if (newSize.x < Image.image.width || newSize.y < Image.image.height)
         {
             return;

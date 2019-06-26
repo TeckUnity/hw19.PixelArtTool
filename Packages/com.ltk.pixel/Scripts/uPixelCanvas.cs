@@ -33,7 +33,7 @@ public class uPixelCanvas : ScriptableObject
     [SerializeField]
     private int CanvasOpsTip;
     private int ShadowCanvasOpTip;
-    [System.NonSerialized]
+    // [System.NonSerialized]
     public List<Frame> Frames;
     public List<uPixelCanvasOp> CanvasOps;
 
@@ -58,6 +58,43 @@ public class uPixelCanvas : ScriptableObject
         CanvasOpsTip = 0;
         ShadowCanvasOpTip = 0;
         ResetFrames();
+    }
+
+    public void AddFrame(bool duplicate = false)
+    {
+        Frame newFrame = new Frame(this);
+        if (duplicate)
+        {
+            GetCurrentFrame().PaletteIndices.CopyTo(newFrame.PaletteIndices, 0);
+        }
+        FrameIndex++;
+        Frames.Insert(FrameIndex, newFrame);
+    }
+
+    public void Resize(Vector2Int newSize)
+    {
+        Vector2Int delta = newSize - Size;
+        int leftPad = delta.x / 2;
+        int rightPad = delta.x - leftPad;
+        int topPad = delta.y / 2;
+        int bottomPad = delta.y - topPad;
+        for (int f = 0; f < Frames.Count; f++)
+        {
+            int[] newIndices = new int[newSize.x * newSize.y];
+            Debug.Log(newIndices.Length);
+            for (int y = 0; y < newSize.y; y++)
+            {
+                for (int x = 0; x < newSize.x; x++)
+                {
+                    int oldY = y - bottomPad;
+                    int oldX = x - leftPad;
+                    int idx = oldY * Size.x + oldX;
+                    newIndices[y * newSize.x + x] = oldY < 0 || oldY >= Size.y || oldX < 0 || oldX >= Size.x ? 0 : Frames[f].PaletteIndices[idx];
+                }
+            }
+            Frames[f].PaletteIndices = newIndices;
+        }
+        Size = newSize;
     }
 
     public Frame GetCurrentFrame()
@@ -145,7 +182,7 @@ public class uPixelCanvas : ScriptableObject
         CanvasOps.Add(op);
 
         UnityEditor.Undo.RecordObject(this, string.Format("uPixelCanvas: {0}", op.GetType().ToString()));
-        ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip+1);
+        ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip + 1);
         CanvasOpsTip = CanvasOps.Count;
         ShadowCanvasOpTip = CanvasOpsTip;
     }

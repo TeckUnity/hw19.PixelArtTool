@@ -8,7 +8,7 @@ using UnityEditor.UIElements;
 
 public class ToolBase : MouseManipulator
 {
-    private Vector2 m_ClickOrigin;
+    protected Vector2Int m_ClickOrigin;
     protected bool m_Active;
     protected Image Image;
     protected uPixel uPixel;
@@ -17,9 +17,19 @@ public class ToolBase : MouseManipulator
 
     public ToolBase()
     {
+
         activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse });
+        activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse, modifiers = EventModifiers.Control });
         m_Active = false;
         uPixel = EditorWindow.GetWindow<uPixel>();
+    }
+
+    protected Vector2Int GetImageCoord(Image image, Vector2 position)
+    {
+        position = target.ChangeCoordinatesTo(Image, position);
+        Vector2Int imageCoord = new Vector2Int((int)(position.x / Image.style.width.value.value * Image.image.width), (int)(position.y / Image.style.height.value.value * Image.image.height));
+        imageCoord.y = (Image.image.height - 1) - imageCoord.y;
+        return imageCoord;
     }
 
     protected override void RegisterCallbacksOnTarget()
@@ -30,6 +40,7 @@ public class ToolBase : MouseManipulator
         target.RegisterCallback<MouseMoveEvent>(OnMouseMove);
         target.RegisterCallback<MouseUpEvent>(OnMouseUp);
         target.RegisterCallback<WheelEvent>(OnMouseWheel);
+        uPixel.ClearBuffer();
     }
 
     protected override void UnregisterCallbacksFromTarget()
@@ -39,6 +50,7 @@ public class ToolBase : MouseManipulator
         target.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
         target.UnregisterCallback<MouseUpEvent>(OnMouseUp);
         target.UnregisterCallback<WheelEvent>(OnMouseWheel);
+        uPixel.ClearBuffer();
     }
 
     protected virtual void OnMouseOver(MouseOverEvent e)
@@ -54,15 +66,10 @@ public class ToolBase : MouseManipulator
         }
         if (CanStartManipulation(e))
         {
-            Image = target.Q<Image>();
-            m_ClickOrigin = target.ChangeCoordinatesTo(Image, e.localMousePosition);
             m_Active = true;
             target.CaptureMouse();
-            Vector2 mousePosition = target.ChangeCoordinatesTo(Image, e.localMousePosition);
-            Vector2Int mouseCoords = new Vector2Int((int)(mousePosition.x / Image.style.width.value.value * Image.image.width), (int)(mousePosition.y / Image.style.height.value.value * Image.image.height));
-            mouseCoords.y = (Image.image.height - 1) - mouseCoords.y;
-            pixelOp.value = (byte)uPixel.paletteIndex;
-            Vector2Int[] coords = GetPixelCoords(mouseCoords);
+            Vector2Int mouseCoord = GetImageCoord(Image, e.localMousePosition);
+            Vector2Int[] coords = GetTargetCoords(mouseCoord);
             foreach (var coord in coords)
             {
                 uPixel.DrawBuffer(coord);
@@ -74,14 +81,12 @@ public class ToolBase : MouseManipulator
 
     protected virtual void OnMouseMove(MouseMoveEvent e)
     {
-        Vector2 mousePosition = target.ChangeCoordinatesTo(Image, e.localMousePosition);
-        Vector2Int mouseCoords = new Vector2Int((int)(mousePosition.x / Image.style.width.value.value * Image.image.width), (int)(mousePosition.y / Image.style.height.value.value * Image.image.height));
-        mouseCoords.y = (Image.image.height - 1) - mouseCoords.y;
+        Vector2Int mouseCoord = GetImageCoord(Image, e.localMousePosition);
         if (!m_Active || !target.HasMouseCapture())
         {
             uPixel.ClearBuffer();
         }
-        Vector2Int[] coords = GetPixelCoords(mouseCoords);
+        Vector2Int[] coords = GetTargetCoords(mouseCoord);
         foreach (var coord in coords)
         {
             uPixel.DrawBuffer(coord);
@@ -122,11 +127,9 @@ public class ToolBase : MouseManipulator
             m_Size += (int)Mathf.Sign(-e.mouseDelta.y);
             m_Size = Mathf.Max(1, m_Size);
         }
-        Vector2 mousePosition = target.ChangeCoordinatesTo(Image, e.localMousePosition);
-        Vector2Int mouseCoords = new Vector2Int((int)(mousePosition.x / Image.style.width.value.value * Image.image.width), (int)(mousePosition.y / Image.style.height.value.value * Image.image.height));
-        mouseCoords.y = (Image.image.height - 1) - mouseCoords.y;
+        Vector2Int mouseCoord = GetImageCoord(Image, e.localMousePosition);
         uPixel.ClearBuffer();
-        Vector2Int[] coords = GetPixelCoords(mouseCoords);
+        Vector2Int[] coords = GetTargetCoords(mouseCoord);
         foreach (var coord in coords)
         {
             uPixel.DrawBuffer(coord);
@@ -134,7 +137,7 @@ public class ToolBase : MouseManipulator
         e.StopPropagation();
     }
 
-    protected virtual Vector2Int[] GetPixelCoords(Vector2Int coord)
+    protected virtual Vector2Int[] GetTargetCoords(Vector2Int coord)
     {
         var coords = new List<Vector2Int>();
         float radius = (float)m_Size / 2f;
