@@ -13,6 +13,7 @@ public class ToolBase : MouseManipulator
     protected Image Image;
     protected uPixel uPixel;
     protected int m_Size = 1;
+    private uPixelCanvasOp pixelOp = new uPixelCanvasOp();
 
     public ToolBase()
     {
@@ -60,11 +61,13 @@ public class ToolBase : MouseManipulator
             Vector2 mousePosition = target.ChangeCoordinatesTo(Image, e.localMousePosition);
             Vector2Int mouseCoords = new Vector2Int((int)(mousePosition.x / Image.style.width.value.value * Image.image.width), (int)(mousePosition.y / Image.style.height.value.value * Image.image.height));
             mouseCoords.y = (Image.image.height - 1) - mouseCoords.y;
+            pixelOp.value = (byte)uPixel.paletteIndex;
             Vector2Int[] coords = GetPixelCoords(mouseCoords);
             foreach (var coord in coords)
             {
                 uPixel.DrawBuffer(coord);
             }
+
             e.StopPropagation();
         }
     }
@@ -83,6 +86,7 @@ public class ToolBase : MouseManipulator
         {
             uPixel.DrawBuffer(coord);
         }
+
         if (!m_Active || !target.HasMouseCapture())
         {
             e.StopPropagation();
@@ -96,7 +100,13 @@ public class ToolBase : MouseManipulator
             return;
         }
         m_Active = false;
-        uPixel.FlushBuffer();
+        //uPixel.FlushBuffer();
+        pixelOp.positions = uPixel.GetBrush();
+        if (pixelOp.positions.Count > 0)
+        {
+            uPixel.pixelAsset.DoCanvasOperation(pixelOp);
+            pixelOp = new uPixelCanvasOp();
+        }
         target.ReleaseMouse();
         e.StopPropagation();
     }

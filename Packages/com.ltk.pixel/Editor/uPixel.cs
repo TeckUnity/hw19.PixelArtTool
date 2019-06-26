@@ -65,7 +65,7 @@ public class uPixel : EditorWindow
 
     private static uPixel window;
     private static string m_PackagePath;
-    private static uPixelCanvas pixelAsset;
+    public static uPixelCanvas pixelAsset { get; private set; }
     private static VisualElement m_Root;
     private static Manipulator m_Tool;
     private static Manipulator m_Manipulator;
@@ -73,7 +73,7 @@ public class uPixel : EditorWindow
     private List<Toggle> m_Tools = new List<Toggle>();
     private Buffer m_DrawBuffer;
     private Buffer m_OverlayBuffer;
-    private int paletteIndex;
+    public int paletteIndex { get; private set; }
 
     private bool isDirty;
 
@@ -95,10 +95,20 @@ public class uPixel : EditorWindow
         SetDirty(true);
     }
 
-    public void FlushBuffer()
+    //public void FlushBuffer()
+    //{
+    //    m_DrawBuffer.Flush(ref pixelAsset.GetCurrentFrame().PaletteIndices);
+    //    SetDirty(true);
+    //}
+    public List<int> GetBrush()
     {
-        m_DrawBuffer.Flush(ref pixelAsset.GetCurrentFrame().PaletteIndices);
-        SetDirty(true);
+        List<int> pixels = new List<int>();
+        for (int i = 0; i < m_DrawBuffer.Indices.Length; i++)
+        {
+            if (m_DrawBuffer.Indices[i] >= 0 && pixelAsset.GetCurrentFrame().PaletteIndices[i] != m_DrawBuffer.Indices[i])
+                pixels.Add(i);
+        }
+        return pixels;
     }
 
     public void SetDirty(bool _dirty)
@@ -173,7 +183,8 @@ public class uPixel : EditorWindow
 
     void OnEnable()
     {
-        UnityEditor.Undo.postprocessModifications += OnUndoRedo;
+        UnityEditor.Undo.postprocessModifications += OnPropMod;
+        UnityEditor.Undo.undoRedoPerformed += OnUndoRedo;
         window = this;
         string[] search = AssetDatabase.FindAssets("t:asmdef uPixel");
         if (search.Length > 0)
@@ -205,8 +216,17 @@ public class uPixel : EditorWindow
         InitImage();
     }
 
+    private void OnDisable()
+    {
+        UnityEditor.Undo.undoRedoPerformed -= OnUndoRedo;
+    }
+
     void InitImage()
     {
+        if (pixelAsset == null) return;
+
+        pixelAsset.RerunHistory();
+
         window.m_DrawBuffer = new Buffer(pixelAsset);
         window.m_OverlayBuffer = new Buffer(pixelAsset);
 
@@ -259,8 +279,23 @@ public class uPixel : EditorWindow
         }
     }
 
-    private UndoPropertyModification[] OnUndoRedo(UndoPropertyModification[] modifications)
+    private void OnUndoRedo()
     {
+        if (pixelAsset.CheckUndoRedo())
+        {
+            SetDirty(true);
+        }
+    }
+
+    private UndoPropertyModification[] OnPropMod(UndoPropertyModification[] modifications)
+    {
+        foreach (var mod in modifications)
+        {
+            if (mod.currentValue.target is uPixelCanvas)
+            {
+                Debug.LogFormat("Undo mod {0}", mod.currentValue.propertyPath);
+            }
+        }
         return modifications;
     }
 }

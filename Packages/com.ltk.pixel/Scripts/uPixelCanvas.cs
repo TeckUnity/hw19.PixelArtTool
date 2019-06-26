@@ -4,25 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class uPixelCanvasOpBase
+public class uPixelCanvasOp
 {
-    public abstract void Execute(uPixelCanvas canvas);
-
     public bool includesSnapshot;
-}
-
-public class ChangePixel : uPixelCanvasOpBase
-{
-    public int frame;
+    public int frame = 0;
     public byte value;
-    public Vector2Int position;
+    public List<int> positions;
 
-    public override void Execute(uPixelCanvas canvas)
+    public void Execute(uPixelCanvas canvas)
     {
-        int index = (position.y * canvas.Size.x) + position.x;
-        canvas.Frames[frame].PaletteIndices[index] = value;
+        foreach (var p in positions)
+        {
+            canvas.GetFrame(frame).PaletteIndices[p] = value;
+        }
     }
 }
+
 
 [CreateAssetMenu]
 public class uPixelCanvas : ScriptableObject
@@ -32,13 +29,13 @@ public class uPixelCanvas : ScriptableObject
 
     public Vector2Int Size;
     public Palette Palette;
-    public List<Frame> Frames;
     public int FrameIndex;
-    public int CanvasOpsTip;
-    public List<uPixelCanvasOpBase> CanvasOps;
-    // Can these be removed?
-    //public Stack<UndoStep> UndoStack;
-    //public Stack<UndoStep> RedoStack;
+    [SerializeField]
+    private int CanvasOpsTip;
+    private int ShadowCanvasOpTip;
+    [System.NonSerialized]
+    public List<Frame> Frames;
+    public List<uPixelCanvasOp> CanvasOps;
 
     [System.Serializable]
     public class Frame
@@ -54,21 +51,23 @@ public class uPixelCanvas : ScriptableObject
 
     }
 
-    //[System.Serializable]
-    //public class UndoStep
-    //{
-    //
-    //}
-
     public uPixelCanvas()
     {
         Size = DEFAULT_SIZE;
+        CanvasOps = new List<uPixelCanvasOp>();
+        CanvasOpsTip = 0;
+        ShadowCanvasOpTip = 0;
         ResetFrames();
     }
 
     public Frame GetCurrentFrame()
     {
         return Frames[FrameIndex];
+    }
+
+    public Frame GetFrame(int index)
+    {
+        return Frames[index];
     }
 
     public void ResetFrames()
@@ -136,7 +135,7 @@ public class uPixelCanvas : ScriptableObject
         }
     }
 
-    public void DoCanvasOperation(uPixelCanvasOpBase op)
+    public void DoCanvasOperation(uPixelCanvasOp op)
     {
         // if a Redo history exists, calling this destroys this
         if (CanvasOps.Count > CanvasOpsTip)
@@ -144,28 +143,33 @@ public class uPixelCanvas : ScriptableObject
             CanvasOps.RemoveRange(CanvasOpsTip, CanvasOps.Count - CanvasOpsTip);
         }
         CanvasOps.Add(op);
+
+        UnityEditor.Undo.RecordObject(this, string.Format("uPixelCanvas: {0}", op.GetType().ToString()));
         ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip+1);
-        CanvasOpsTip += 1;
+        CanvasOpsTip = CanvasOps.Count;
+        ShadowCanvasOpTip = CanvasOpsTip;
     }
 
-    public void UndoCanvasOperations(int count)
+    public void RerunHistory()
     {
-        //Clear the data
         ResetFrames();
-        // Re-run frames to return to the old state
-        CanvasOpsTip -= count;
-        // Don't remove the CanvasOps just yet. Wait until a new op is run
         ExecuteCanvasOps(0, CanvasOpsTip);
+        ShadowCanvasOpTip = CanvasOpsTip;
     }
 
-    public void RedoCanvasOperations(int count)
+    public bool CheckUndoRedo()
     {
-        if (CanvasOps.Count == CanvasOpsTip)
+        if (ShadowCanvasOpTip != CanvasOpsTip)
         {
-            // Nothing left to do.
-            return;
+            ResetFrames();
+            ExecuteCanvasOps(0, CanvasOpsTip);
+            if (CanvasOpsTip > CanvasOps.Count)
+            {
+                CanvasOpsTip = CanvasOps.Count;
+            }
+            ShadowCanvasOpTip = CanvasOpsTip;
+            return true;
         }
-        ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip + count);
-        CanvasOpsTip += count;
+        return false;
     }
 }

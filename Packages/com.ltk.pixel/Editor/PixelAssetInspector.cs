@@ -20,22 +20,22 @@ public class PixelAssetInspector : Editor
     public override VisualElement CreateInspectorGUI()
     {
         VisualElement root = new VisualElement();
-        // root.Bind(serializedObject);
-        // SerializedProperty property = serializedObject.GetIterator();
-        // if (property.NextVisible(true)) // Expand first child.
-        // {
-        //     do
-        //     {
-        //         var field = new PropertyField(property);
-        //         field.name = "PropertyField:" + property.propertyPath;
+        root.Bind(serializedObject);
+        SerializedProperty property = serializedObject.GetIterator();
+        if (property.NextVisible(true)) // Expand first child.
+        {
+            do
+            {
+                var field = new PropertyField(property);
+                field.name = "PropertyField:" + property.propertyPath;
 
-        //         if (property.propertyPath == "m_Script" && serializedObject.targetObject != null)
-        //             field.SetEnabled(false);
-
-        //         root.Add(field);
-        //     }
-        //     while (property.NextVisible(false));
-        // }
+                if (property.propertyPath == "m_Script" && serializedObject.targetObject != null)
+                    field.SetEnabled(false);
+                if (property.propertyPath != "CanvasOps")
+                    root.Add(field);
+            }
+            while (property.NextVisible(false));
+        }
         // root.Q<VisualElement>(name: "PropertyField:Frames").RegisterCallback<MouseDownEvent>(RandomisePixels);
         m_Image = new Image();
         m_Image.image = m_Texture;
