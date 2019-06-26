@@ -12,6 +12,14 @@ public class uPixelBehaviour : MonoBehaviour
     public int Scale = 1;
     private int m_lastScale = 1; // TODO this is a bit horrible, just to test
 
+    public bool Animate = false;
+
+    public int CurrentFrame = 0;
+
+    public float FrameLen = 0.2f;
+
+    private float m_frameElapsed = 0f;
+
     private SpriteRenderer m_SpriteRenderer;
 
     // We use this to scale up the Canvas's Texture2D reasonably efficiently
@@ -35,11 +43,26 @@ public class uPixelBehaviour : MonoBehaviour
     
     void Update()
     {
-        // TODO animation
-        if (m_SpriteRenderer.sprite == null || m_lastScale != Scale)
+        if (Canvas != null)
         {
-            m_lastScale = Scale;
-            m_SpriteRenderer.sprite = GetScaledSprite();
+            if (Animate)
+            {
+                m_frameElapsed += Time.deltaTime;
+                if (m_frameElapsed >= FrameLen)
+                {
+                    CurrentFrame++;
+                    if (CurrentFrame >= Canvas.Frames.Count)
+                        CurrentFrame = 0;
+                    m_frameElapsed = 0f;
+                    // Force re-aquistion of texture:
+                    m_SpriteRenderer.sprite = null;
+                }
+            }
+            if (m_SpriteRenderer.sprite == null || m_lastScale != Scale)
+            {
+                m_lastScale = Scale;
+                m_SpriteRenderer.sprite = GetScaledSprite();
+            }
         }
     }
 
@@ -47,7 +70,7 @@ public class uPixelBehaviour : MonoBehaviour
     {
         if (Canvas == null || Scale < 1)
             return null;
-        var tex = Canvas.ToTexture2D(); // TODO seems like we shouldn't be doing this every time - maybe Canvas needs 'dirty' flag?
+        var tex = Canvas.ToTexture2D(CurrentFrame); // TODO seems like we shouldn't be doing this every time - maybe Canvas needs 'dirty' flag?
         int w = tex.width * Scale;
         int h = tex.height * Scale;
         if (m_ScaledRenderTex != null)

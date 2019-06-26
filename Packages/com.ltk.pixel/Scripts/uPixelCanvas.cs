@@ -148,17 +148,20 @@ public class uPixelCanvas : ScriptableObject
         }
     }
 
-    public Texture2D ToTexture2D()
+    public Texture2D ToTexture2D(int frameOverride = -1)
     {
         Texture2D t = new Texture2D(Size.x, Size.y);
         t.filterMode = FilterMode.Point;
         // Sanity check we have at least one frame and a palette
         if (Frames.Count > 0 && Palette != null)
         {
+            Frame theFrame = GetCurrentFrame();
+            if (frameOverride >= 0 && frameOverride < Frames.Count)
+                theFrame = Frames[frameOverride];
             Color32[] colors = t.GetPixels32();
-            for (int i = 0; i < GetCurrentFrame().PaletteIndices.Length; i++)
+            for (int i = 0; i < theFrame.PaletteIndices.Length; i++)
             {
-                colors[i] = Palette.Colors[GetCurrentFrame().PaletteIndices[i]];
+                colors[i] = Palette.Colors[theFrame.PaletteIndices[i]];
             }
 
             t.SetPixels32(colors);
