@@ -23,7 +23,6 @@ public class ToolBase : MouseManipulator
 
     public ToolBase()
     {
-
         activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse });
         activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse, modifiers = EventModifiers.Control });
         m_Active = false;

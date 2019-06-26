@@ -152,7 +152,7 @@ public class uPixelCanvas : ScriptableObject
     {
         if (Keyframes.Count == 0) return 0;
 
-        int keyindex = (where / KEYFRAME_RATE)-1;
+        int keyindex = (where / KEYFRAME_RATE) - 1;
         if (keyindex < 0) return 0;
 
         if (keyindex >= Keyframes.Count)
@@ -170,7 +170,7 @@ public class uPixelCanvas : ScriptableObject
         FrameIndex = Keyframes[keyindex].FrameIndex;
         Size = Keyframes[keyindex].Size;
 
-        return (keyindex+1) * KEYFRAME_RATE;
+        return (keyindex + 1) * KEYFRAME_RATE;
     }
 
     public void AddFrame(bool duplicate = false)
@@ -253,6 +253,11 @@ public class uPixelCanvas : ScriptableObject
         return CanvasOpsTip;
     }
 
+    public int GetHistoryLengthWithFuture()
+    {
+        return CanvasOps.Count;
+    }
+
     public void RandomisePixels()
     {
         if (GetCurrentFrame().PaletteIndices.Length != Size.x * Size.y)
@@ -308,11 +313,22 @@ public class uPixelCanvas : ScriptableObject
 
     public Texture2D GetTextureAtTime(int operation)
     {
-        ResetFrames();
-        ExecuteCanvasOps(0, operation + 1);
-        Texture2D tex = ToTexture2D();
-        ExecuteCanvasOps(operation, CanvasOpsTip);
-        return tex;
+        if (operation > CanvasOpsTip)
+        {
+            ResetFrames();
+            ExecuteCanvasOps(CanvasOpsTip, operation);
+            Texture2D tex = ToTexture2D();
+            ExecuteCanvasOps(0, CanvasOpsTip);
+            return tex;
+        }
+        else
+        {
+            ResetFrames();
+            ExecuteCanvasOps(0, operation + 1);
+            Texture2D tex = ToTexture2D();
+            ExecuteCanvasOps(operation, CanvasOpsTip);
+            return tex;
+        }
     }
 
     private void ExecuteCanvasOps(int startIndex, int endIndex)
@@ -360,6 +376,15 @@ public class uPixelCanvas : ScriptableObject
         ResetFrames();
         ExecuteCanvasOps(0, CanvasOpsTip);
         ShadowCanvasOpTip = CanvasOpsTip;
+    }
+
+    public void StepHistoryTo(int pointInTime)
+    {
+        pointInTime = System.Math.Min(pointInTime, CanvasOps.Count);
+        ResetFrames();
+        ExecuteCanvasOps(0, pointInTime);
+        CanvasOpsTip = pointInTime;
+        ShadowCanvasOpTip = pointInTime;
     }
 
     public bool CheckUndoRedo()

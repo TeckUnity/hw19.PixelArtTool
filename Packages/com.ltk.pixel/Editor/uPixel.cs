@@ -53,7 +53,7 @@ public class CanvasHistoryCache
         return e.texture;
     }
 
-    void ClearCache()
+    public void ClearCache()
     {
         entries.RemoveRange(0, entries.Count);
     }
@@ -183,6 +183,7 @@ public class uPixel : EditorWindow
     public void SetPaletteIndex(int index)
     {
         paletteIndex = index;
+        DrawPalette();
     }
 
     void Update()
@@ -276,16 +277,28 @@ public class uPixel : EditorWindow
         window.AddFrame();
     }
 
-    [Shortcut("uPixel/Next Frame", typeof(uPixel), KeyCode.RightBracket)]
+    [Shortcut("uPixel/Next Frame", typeof(uPixel), KeyCode.RightArrow)]
     static void NextFrameShortcut()
     {
         window.NextFrame();
     }
 
-    [Shortcut("uPixel/Previous Frame", typeof(uPixel), KeyCode.LeftBracket)]
+    [Shortcut("uPixel/Previous Frame", typeof(uPixel), KeyCode.LeftArrow)]
     static void PrevFrameShortcut()
     {
         window.PrevFrame();
+    }
+
+    [Shortcut("uPixel/Next Color", typeof(uPixel), KeyCode.RightBracket)]
+    static void NextColorShortcut()
+    {
+        window.CyclePalette(1);
+    }
+
+    [Shortcut("uPixel/Previous Color", typeof(uPixel), KeyCode.LeftBracket)]
+    static void PrevColorShortcut()
+    {
+        window.CyclePalette(-1);
     }
 
     void OnEnable()
@@ -332,27 +345,95 @@ public class uPixel : EditorWindow
         VisualElement HistoryDrawParent = history.Q<VisualElement>(name: "HistoryDraw");
         HistoryDrawParent.Add(new IMGUIContainer(HistoryDrawOnGUI));
         InitImage();
-        var palette = m_Root.Q<VisualElement>(name: "palette");
-        palette.style.backgroundColor = Color.black;
-        var paletteSO = new SerializedObject(pixelAsset.Palette);
-        var colorsProp = paletteSO.FindProperty("Colors");
-        for (int i = 0; i < colorsProp.arraySize; i++)
-        {
-            var entry = new ColorField();
-            entry.BindProperty(colorsProp.GetArrayElementAtIndex(i));
-            entry.showEyeDropper = false;
-            entry.style.width = 16;
-            entry.RegisterValueChangedCallback(OnPaletteEdit);
-            palette.Add(entry);
-        }
+
+        DrawPalette();
 
         m_HistoryValue = pixelAsset.GetHistoryLength();
 
     }
 
+    private void DrawPalette()
+    {
+        var palette = m_Root.Q<VisualElement>(name: "palette");
+        palette.Clear();
+        var paletteSO = new SerializedObject(pixelAsset.Palette);
+        var picker = new ObjectField();
+        picker.objectType = typeof(Palette);
+        picker.BindProperty(paletteSO);
+        palette.Add(picker);
+        // palette.Add(new IMGUIContainer(PaletteDrawOnGUI));
+        palette.style.backgroundColor = Color.black;
+        var colorsProp = paletteSO.FindProperty("Colors");
+        for (int i = 0; i < colorsProp.arraySize; i++)
+        {
+            if (i == paletteIndex)
+            {
+                var entry = new ColorField();
+                entry.pickingMode = PickingMode.Position;
+                entry.BindProperty(colorsProp.GetArrayElementAtIndex(i));
+                entry.showEyeDropper = false;
+                entry.showAlpha = false;
+                entry.style.width = entry.style.height = 16;
+                entry.style.marginLeft = entry.style.marginRight = 0;
+                entry.style.marginTop = entry.style.marginBottom = 0;
+                entry.style.borderColor = Color.white;
+                entry.style.borderLeftWidth = entry.style.borderRightWidth = 1;
+                entry.style.borderTopWidth = entry.style.borderBottomWidth = 1;
+                entry.style.borderBottomLeftRadius = entry.style.borderBottomRightRadius = 2;
+                entry.style.borderTopLeftRadius = entry.style.borderTopRightRadius = 2;
+                entry.RegisterValueChangedCallback(OnPaletteEdit);
+                palette.Add(entry);
+            }
+            else
+            {
+                var index = i;
+                var entry = new Button(() =>
+                {
+                    paletteIndex = index;
+                    var colors = palette.Query<VisualElement>();
+                    colors.ForEach(c => palette.Remove(c));
+                    DrawPalette();
+                });
+                entry.style.backgroundImage = EditorGUIUtility.whiteTexture;
+                entry.style.unityBackgroundImageTintColor = (Color)pixelAsset.Palette.Colors[i];
+                entry.style.width = entry.style.height = 14;
+                entry.style.marginLeft = entry.style.marginRight = 1;
+                entry.style.marginTop = entry.style.marginBottom = 1;
+                palette.Add(entry);
+            }
+        }
+    }
+
+    private void PaletteDrawOnGUI()
+    {
+        GUIStyle b = new GUIStyle(GUI.skin.button);
+        b.normal.background = EditorGUIUtility.whiteTexture;
+        Color c = GUI.color;
+        for (int i = 0; i < pixelAsset.Palette.Colors.Length; i++)
+        {
+            int x = i % 4;
+            int y = i / 4;
+            GUI.color = pixelAsset.Palette.Colors[i];
+            RectOffset ro = new RectOffset(1, 1, 1, 1);
+            Rect r = new Rect(x * 16, y * 16, 16, 16);
+            if (i == paletteIndex)
+            {
+                pixelAsset.Palette.Colors[i] = EditorGUI.ColorField(ro.Add(ro.Add(r)), GUIContent.none, pixelAsset.Palette.Colors[i], false, false, false);
+            }
+            else
+            {
+                if (GUI.Button(ro.Remove(r), EditorGUIUtility.whiteTexture, b))
+                {
+                    paletteIndex = i;
+                }
+            }
+        }
+    }
+
     private void OnPaletteEdit(ChangeEvent<Color> e)
     {
         InitImage();
+        m_HistoryCache.ClearCache();
     }
 
     private void OnDisable()
@@ -428,6 +509,7 @@ public class uPixel : EditorWindow
     }
     void HistoryDrawOnGUI()
     {
+        Event e = Event.current;
         if (m_HistoryCache == null)
         {
             m_HistoryCache = new CanvasHistoryCache();
@@ -439,9 +521,21 @@ public class uPixel : EditorWindow
         {
             Rect rect = GUILayoutUtility.GetRect(32, 32);
             GUILayout.Space(6);
-            if (historyIndex + i < pixelAsset.GetHistoryLength())
+            if (historyIndex + i < pixelAsset.GetHistoryLengthWithFuture())
             {
                 EditorGUI.DrawPreviewTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i));
+                if (rect.Contains(e.mousePosition))
+                {
+                    // Draw overlay/frame
+                    if (e.type == EventType.MouseDown && e.button == 0)
+                    {
+                        // TODO: Set history state
+                        Debug.Log(historyIndex + i);
+                        pixelAsset.StepHistoryTo(historyIndex + i);
+                        InitImage();
+                        m_HistoryCache.ClearCache();
+                    }
+                }
             }
             else
             {
@@ -506,6 +600,7 @@ public class uPixel : EditorWindow
     public void CyclePalette(int delta)
     {
         paletteIndex = (paletteIndex + delta + pixelAsset.Palette.Colors.Length) % pixelAsset.Palette.Colors.Length;
+        DrawPalette();
         SetDirty(true);
     }
 
