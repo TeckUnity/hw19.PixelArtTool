@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -36,9 +37,14 @@ public class PixelAssetInspector : Editor
         //     }
         //     while (property.NextVisible(false));
         // }
+        var paletteProp = serializedObject.FindProperty("Palette");
         var palette = new ObjectField("Palette");
         palette.objectType = typeof(Palette);
-        palette.BindProperty(serializedObject.FindProperty("Palette"));
+        palette.BindProperty(paletteProp);
+        if (paletteProp.objectReferenceValue == null)
+        {
+            paletteProp.objectReferenceValue = AssetDatabase.LoadAssetAtPath<Palette>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:Palette").First()));
+        }
         m_Root.Add(palette);
         var size = new Vector2IntField("Size");
         size.value = serializedObject.FindProperty("Size").vector2IntValue;
