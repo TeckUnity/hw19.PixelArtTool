@@ -20,7 +20,7 @@ public class CanvasHistoryCache
     int LRUCounter = 0;
     List<Entry> entries = new List<Entry>();
 
-    public Texture2D GetHistoryPreview(uPixelCanvas canvas, int frameIndex)
+    public Texture2D GetHistoryPreview(uPixelCanvas canvas, int index)
     {
         int oldEntry = 0;
         int minLRU = LRUCounter + 1;
@@ -31,7 +31,7 @@ public class CanvasHistoryCache
                 oldEntry = i;
                 minLRU = entries[i].lru;
             }
-            if (frameIndex == entries[i].id)
+            if (index == entries[i].id)
             {
                 LRUCounter++;
                 entries[i].lru = LRUCounter;
@@ -46,8 +46,8 @@ public class CanvasHistoryCache
         Entry e = new Entry();
         LRUCounter++;
         e.lru = LRUCounter;
-        e.id = frameIndex;
-        e.texture = canvas.GetTextureAtTime(frameIndex);
+        e.id = index;
+        e.texture = canvas.GetTextureAtTime(index);
         entries.Add(e);
         return e.texture;
     }
@@ -326,7 +326,7 @@ public class uPixel : EditorWindow
         InitImage();
 
         m_HistoryValue = pixelAsset.GetHistoryLength();
-        m_HistoryCache = new CanvasHistoryCache();
+        
     }
 
     private void OnDisable()
@@ -396,6 +396,10 @@ public class uPixel : EditorWindow
     }
     void HistoryDrawOnGUI()
     {
+        if (m_HistoryCache == null)
+        {
+            m_HistoryCache = new CanvasHistoryCache();
+        }
         GUILayout.BeginHorizontal();
 
         int historyIndex = Math.Max(m_HistoryValue - 5, 0);
