@@ -15,6 +15,11 @@ xsi:schemaLocation="
     <engine:VisualElement name="canvas" class="canvas">
         <Style path="Assets/uPixel.uss" />
         <engine:Image />
+        <VisualElement name="History" style="position: absolute; top: 450px; left: -1px; bottom: -543px; width: 540px;">
+            <Style path="Assets/uPixel.uss" />
+            <Label text="Edit History" name="HistoryTitle" style="height: 13px;" />
+            <VisualElement name="HistoryDraw" />
+        </VisualElement>
     </engine:VisualElement>
     <engine:VisualElement name="menu" class="toolbar">
         <engine:Label text="File" />

@@ -5,7 +5,7 @@
 }
 
 .toolbar Label {
-    padding: 2px 4px;
+    padding: 2 4;
 }
 
 .toolbar :hover {
@@ -31,5 +31,5 @@
 .canvas Image {
     position: absolute;
     border-color: rgb(0, 0, 0);
-    border-width: 1px;
+    border-width: 1;
 }

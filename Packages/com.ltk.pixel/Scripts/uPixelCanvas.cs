@@ -112,6 +112,11 @@ public class uPixelCanvas : ScriptableObject
         Frames = new List<Frame>() { new Frame(this) };
     }
 
+    public int GetHistoryLength()
+    {
+        return CanvasOpsTip;
+    }
+
     public void RandomisePixels()
     {
         if (GetCurrentFrame().PaletteIndices.Length != Size.x * Size.y)
@@ -160,6 +165,15 @@ public class uPixelCanvas : ScriptableObject
             t.Apply();
         }
         return t;
+    }
+
+    public Texture2D GetTextureAtTime(int operation)
+    {
+        ResetFrames();
+        ExecuteCanvasOps(0, operation);
+        Texture2D tex = ToTexture2D();
+        ExecuteCanvasOps(operation, CanvasOpsTip);
+        return tex;
     }
 
     private void ExecuteCanvasOps(int startIndex, int endIndex)

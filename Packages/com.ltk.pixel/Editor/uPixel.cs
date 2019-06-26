@@ -8,6 +8,51 @@ using UnityEngine.UIElements;
 using System.Text.RegularExpressions;
 using UnityEditor.ShortcutManagement;
 
+public class CanvasHistoryCache
+{
+    public class Entry
+    {
+        public int lru;
+        public int id;
+        public Texture2D texture;
+    }
+
+    int LRUCounter = 0;
+    List<Entry> entries = new List<Entry>();
+
+    public Texture2D GetHistoryPreview(uPixelCanvas canvas, int frameIndex)
+    {
+        int oldEntry = 0;
+        int minLRU = LRUCounter+1;
+        for (int i = 0; i < entries.Count; ++i)
+        {
+            if (entries[i].lru < minLRU)
+            {
+                oldEntry = i;
+                minLRU = entries[i].lru;
+            }
+            if (frameIndex == entries[i].id)
+            {
+                LRUCounter++;
+                entries[i].lru = LRUCounter;
+                return entries[i].texture;
+            }
+        }
+
+        if (entries.Count >= 30)
+        {
+            entries.RemoveAt(oldEntry);
+        }
+        Entry e = new Entry();
+        LRUCounter++;
+        e.lru = LRUCounter;
+        e.id = frameIndex;
+        e.texture = canvas.GetTextureAtTime(frameIndex);
+        entries.Add(e);
+        return e.texture;
+    }
+}
+
 public class uPixel : EditorWindow
 {
     public class Buffer
@@ -75,6 +120,8 @@ public class uPixel : EditorWindow
     private Buffer m_OverlayBuffer;
     public int paletteIndex { get; private set; }
     private Dictionary<KeyCode, bool> keyPressed = new Dictionary<KeyCode, bool>();
+    private int m_HistoryValue;
+    private CanvasHistoryCache m_HistoryCache;
 
     private bool isDirty;
 
@@ -272,7 +319,14 @@ public class uPixel : EditorWindow
         m_Root.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 
         m_Image = m_Root.Q<Image>();
+        var canvas = m_Root.Q<VisualElement>(className: "canvas");
+        var history = canvas.Q<VisualElement>(name: "History");
+        VisualElement HistoryDrawParent = history.Q<VisualElement>(name: "HistoryDraw");
+        HistoryDrawParent.Add(new IMGUIContainer(HistoryDrawOnGUI));
         InitImage();
+
+        m_HistoryValue = pixelAsset.GetHistoryLength();
+        m_HistoryCache = new CanvasHistoryCache();
     }
 
     private void OnDisable()
@@ -340,6 +394,28 @@ public class uPixel : EditorWindow
             }
         }
     }
+    void HistoryDrawOnGUI()
+    {
+        GUILayout.BeginHorizontal("History preview");
+
+        int historyIndex = Math.Max(m_HistoryValue - 5, 0);
+        for (int i = 0; i < 10; ++i)
+        {
+            Rect rect = GUILayoutUtility.GetRect(32, 32);
+            GUILayout.Space(6);
+            if (historyIndex + i < pixelAsset.GetHistoryLength())
+            {
+                EditorGUI.DrawPreviewTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i));
+            }
+            else
+            {
+                EditorGUI.DrawRect(rect, new Color(0.2f, 0.2f, 0.2f));
+            }
+        }
+
+        GUILayout.EndHorizontal();
+        m_HistoryValue = Mathf.FloorToInt(GUILayout.HorizontalSlider(m_HistoryValue, 0, pixelAsset.GetHistoryLength()));
+    }
 
     void InitImage()
     {
@@ -365,6 +441,8 @@ public class uPixel : EditorWindow
             colors[i] = Color.clear;
         }
         t.SetPixels32(colors);
+
+
     }
 
     public void AddFrame(bool duplicate = false)
