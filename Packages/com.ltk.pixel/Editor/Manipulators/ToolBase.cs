@@ -10,14 +10,19 @@ public class ToolBase : MouseManipulator
 {
     protected Vector2Int m_ClickOrigin;
     protected bool m_Active;
-    protected Image Image;
+    protected Image Image
+    {
+        get
+        {
+            return target.Q<Image>();
+        }
+    }
     protected uPixel uPixel;
     protected int m_Size = 1;
     private uPixelCanvasOp pixelOp = new uPixelCanvasOp();
 
     public ToolBase()
     {
-
         activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse });
         activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse, modifiers = EventModifiers.Control });
         m_Active = false;
@@ -34,7 +39,6 @@ public class ToolBase : MouseManipulator
 
     protected override void RegisterCallbacksOnTarget()
     {
-        Image = target.Q<Image>();
         target.RegisterCallback<MouseOverEvent>(OnMouseOver);
         target.RegisterCallback<MouseDownEvent>(OnMouseDown);
         target.RegisterCallback<MouseMoveEvent>(OnMouseMove);
