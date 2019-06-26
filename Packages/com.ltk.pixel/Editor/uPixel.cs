@@ -51,6 +51,11 @@ public class CanvasHistoryCache
         entries.Add(e);
         return e.texture;
     }
+
+    void ClearCache()
+    {
+        entries.RemoveRange(0, entries.Count);
+    }
 }
 
 public class uPixel : EditorWindow
