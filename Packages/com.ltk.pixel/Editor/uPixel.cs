@@ -347,7 +347,7 @@ public class uPixel : EditorWindow
         }
 
         m_HistoryValue = pixelAsset.GetHistoryLength();
-        
+
     }
 
     private void OnPaletteEdit(ChangeEvent<Color> e)
