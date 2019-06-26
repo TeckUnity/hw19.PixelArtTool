@@ -21,14 +21,27 @@ public class uPixelCanvasOp
         public Vector2Int size;
     }
 
+    [System.Serializable]
+    public class Group
+    {
+        public byte value = 0;
+        public List<int> positions = null;
+    }
+
+    [System.Serializable]
+    public class GroupData
+    {
+        public List<Group> pixelSets = null;
+    }
+
     public OpType type = OpType.PixelSet;
     public bool includesSnapshot;
     public bool duplicate;
     public int frame = 0;
     public byte value;
-    public ResizeData resize;
-    public List<int> positions;
-    public List<uPixelCanvasOp> subOps;
+    public ResizeData resize = null;
+    public List<int> positions = null;
+    public GroupData group = null;
 
     public void Execute(uPixelCanvas canvas)
     {
@@ -56,6 +69,15 @@ public class uPixelCanvasOp
 public class uPixelCanvas : ScriptableObject
 {
 
+    private class Keyframe
+    {
+        public Vector2Int Size;
+        public int FrameIndex;
+        public List<Frame> Frames;
+    }
+
+    // The plus & minus 1 used around KEYFRAME_RATE are because we don't need to have a key frame at frame 0 (because we know it's all zero)
+    private static readonly int KEYFRAME_RATE = 64; // Generate keyframes every KEYFRAME_RATE frames
     private static readonly Vector2Int DEFAULT_SIZE = new Vector2Int(64, 64);
 
     public Vector2Int Size;
@@ -67,6 +89,8 @@ public class uPixelCanvas : ScriptableObject
     // [System.NonSerialized]
     public List<Frame> Frames;
     public List<uPixelCanvasOp> CanvasOps;
+    [System.NonSerialized]
+    private List<Keyframe> Keyframes;
 
     [System.Serializable]
     public class Frame
@@ -80,6 +104,11 @@ public class uPixelCanvas : ScriptableObject
             PaletteIndices = new int[m_parentCanvas.Size.x * m_parentCanvas.Size.y];
         }
 
+        public Frame(uPixelCanvas parentCanvas, Vector2Int overrideSize)
+        {
+            m_parentCanvas = parentCanvas;
+            PaletteIndices = new int[overrideSize.x * overrideSize.y];
+        }
     }
 
     public uPixelCanvas()
@@ -89,6 +118,59 @@ public class uPixelCanvas : ScriptableObject
         CanvasOpsTip = 0;
         ShadowCanvasOpTip = 0;
         ResetFrames();
+    }
+
+    void GenerateKeyFrameNow()
+    {
+        Keyframe newkey = new Keyframe();
+        newkey.Size = Size;
+        newkey.FrameIndex = FrameIndex;
+        newkey.Frames = new List<Frame>();
+        foreach (var frame in Frames)
+        {
+            Frame newframe = new Frame(this, Size);
+            newframe.PaletteIndices = frame.PaletteIndices.Clone() as int[];
+            newkey.Frames.Add(frame);
+        }
+        Keyframes.Add(newkey);
+    }
+
+    void TrimKeyFrames()
+    {
+        int requiredcount = (CanvasOpsTip / KEYFRAME_RATE) - 1;
+        if (requiredcount < 0)
+        {
+            Keyframes.RemoveRange(0, Keyframes.Count);
+        }
+        else if (Keyframes.Count > requiredcount)
+        {
+            Keyframes.RemoveRange(requiredcount, Keyframes.Count - requiredcount);
+        }
+    }
+
+    int ApplyNearestKeyframe(int where)
+    {
+        if (Keyframes.Count == 0) return 0;
+
+        int keyindex = (where / KEYFRAME_RATE)-1;
+        if (keyindex < 0) return 0;
+
+        if (keyindex >= Keyframes.Count)
+        {
+            keyindex = Keyframes.Count - 1;
+        }
+
+        foreach (var frame in Keyframes[keyindex].Frames)
+        {
+            Frame newframe = new Frame(this, Keyframes[keyindex].Size);
+            newframe.PaletteIndices = frame.PaletteIndices.Clone() as int[];
+            Frames.Add(newframe);
+        }
+
+        FrameIndex = Keyframes[keyindex].FrameIndex;
+        Size = Keyframes[keyindex].Size;
+
+        return (keyindex+1) * KEYFRAME_RATE;
     }
 
     public void AddFrame(bool duplicate = false)
@@ -131,7 +213,6 @@ public class uPixelCanvas : ScriptableObject
         for (int f = 0; f < Frames.Count; f++)
         {
             int[] newIndices = new int[newSize.x * newSize.y];
-            Debug.Log(newIndices.Length);
             for (int y = 0; y < newSize.y; y++)
             {
                 for (int x = 0; x < newSize.x; x++)
@@ -161,6 +242,10 @@ public class uPixelCanvas : ScriptableObject
     {
         Size = DEFAULT_SIZE;
         Frames = new List<Frame>() { new Frame(this) };
+        if (Keyframes == null)
+        {
+            Keyframes = new List<Keyframe>();
+        }
     }
 
     public int GetHistoryLength()
@@ -232,11 +317,20 @@ public class uPixelCanvas : ScriptableObject
 
     private void ExecuteCanvasOps(int startIndex, int endIndex)
     {
-        // TODO: Jump to newest SnapShot/Keyframe
+        int jumpStart = startIndex;
+        if (startIndex < CanvasOpsTip)
+        {
+            jumpStart = ApplyNearestKeyframe(jumpStart);
+        }
         int OpCount = CanvasOps.Count;
-        for (int i = startIndex; i < OpCount && i < endIndex; ++i)
+        for (int i = jumpStart; i < OpCount && i < endIndex; ++i)
         {
             CanvasOps[i].Execute(this);
+
+            if (i % KEYFRAME_RATE == 0 && i / KEYFRAME_RATE > Keyframes.Count && i > 0)
+            {
+                GenerateKeyFrameNow();
+            }
         }
     }
 
@@ -246,6 +340,7 @@ public class uPixelCanvas : ScriptableObject
         if (CanvasOps.Count > CanvasOpsTip)
         {
             CanvasOps.RemoveRange(CanvasOpsTip, CanvasOps.Count - CanvasOpsTip);
+            TrimKeyFrames();
         }
         CanvasOps.Add(op);
 
@@ -253,6 +348,11 @@ public class uPixelCanvas : ScriptableObject
         ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip + 1);
         CanvasOpsTip = CanvasOps.Count;
         ShadowCanvasOpTip = CanvasOpsTip;
+
+        if (CanvasOpsTip % KEYFRAME_RATE == 0 && CanvasOpsTip > 0)
+        {
+            GenerateKeyFrameNow();
+        }
     }
 
     public void RerunHistory()
