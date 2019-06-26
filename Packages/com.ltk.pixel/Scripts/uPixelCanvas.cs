@@ -147,43 +147,6 @@ public class uPixelCanvas : ScriptableObject
         Size = newSize;
     }
 
-    public void AddFrame(bool duplicate = false)
-    {
-        Frame newFrame = new Frame(this);
-        if (duplicate)
-        {
-            GetCurrentFrame().PaletteIndices.CopyTo(newFrame.PaletteIndices, 0);
-        }
-        FrameIndex++;
-        Frames.Insert(FrameIndex, newFrame);
-    }
-
-    public void Resize(Vector2Int newSize)
-    {
-        Vector2Int delta = newSize - Size;
-        int leftPad = delta.x / 2;
-        int rightPad = delta.x - leftPad;
-        int topPad = delta.y / 2;
-        int bottomPad = delta.y - topPad;
-        for (int f = 0; f < Frames.Count; f++)
-        {
-            int[] newIndices = new int[newSize.x * newSize.y];
-            Debug.Log(newIndices.Length);
-            for (int y = 0; y < newSize.y; y++)
-            {
-                for (int x = 0; x < newSize.x; x++)
-                {
-                    int oldY = y - bottomPad;
-                    int oldX = x - leftPad;
-                    int idx = oldY * Size.x + oldX;
-                    newIndices[y * newSize.x + x] = oldY < 0 || oldY >= Size.y || oldX < 0 || oldX >= Size.x ? 0 : Frames[f].PaletteIndices[idx];
-                }
-            }
-            Frames[f].PaletteIndices = newIndices;
-        }
-        Size = newSize;
-    }
-
     public Frame GetCurrentFrame()
     {
         return Frames[FrameIndex];
@@ -261,7 +224,7 @@ public class uPixelCanvas : ScriptableObject
     public Texture2D GetTextureAtTime(int operation)
     {
         ResetFrames();
-        ExecuteCanvasOps(0, operation+1);
+        ExecuteCanvasOps(0, operation + 1);
         Texture2D tex = ToTexture2D();
         ExecuteCanvasOps(operation, CanvasOpsTip);
         return tex;

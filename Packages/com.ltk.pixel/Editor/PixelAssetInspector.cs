@@ -22,11 +22,7 @@ public class PixelAssetInspector : Editor
     public override VisualElement CreateInspectorGUI()
     {
         m_Root = new VisualElement();
-<<<<<<< Updated upstream
-        // m_Root.Bind(serializedObject);
-=======
         // root.Bind(serializedObject);
->>>>>>> Stashed changes
         // SerializedProperty property = serializedObject.GetIterator();
         // if (property.NextVisible(true)) // Expand first child.
         // {
@@ -64,19 +60,12 @@ public class PixelAssetInspector : Editor
         var frameIndex = new IntegerField("Frame");
         frameIndex.BindProperty(serializedObject.FindProperty("FrameIndex"));
         frameIndex.RegisterValueChangedCallback(ChangeFrame);
-<<<<<<< Updated upstream
         frameIndex.SetEnabled(false);
-=======
->>>>>>> Stashed changes
         m_Root.Add(frameIndex);
         m_Image = new Image();
         m_Image.image = m_Texture;
         m_Image.style.width = m_Image.style.height = 128;
-<<<<<<< Updated upstream
         // m_Image.RegisterCallback<MouseDownEvent>(RandomisePixels);
-=======
-        m_Image.RegisterCallback<MouseDownEvent>(RandomisePixels);
->>>>>>> Stashed changes
         m_Root.Add(m_Image);
         return m_Root;
     }
