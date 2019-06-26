@@ -115,7 +115,12 @@ public class ToolBase : MouseManipulator
         pixelOp.frame = uPixel.pixelAsset.FrameIndex;
         if (pixelOp.positions.Count > 0)
         {
+            int prev = uPixel.pixelAsset.GetHistoryLengthWithFuture();
             uPixel.pixelAsset.DoCanvasOperation(pixelOp);
+            if (prev > uPixel.pixelAsset.GetHistoryLengthWithFuture())
+            {
+                uPixel.m_HistoryCache.ClearCache();
+            }
             pixelOp = new uPixelCanvasOp();
         }
         target.ReleaseMouse();

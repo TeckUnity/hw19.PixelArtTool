@@ -127,7 +127,7 @@ public class uPixel : EditorWindow
     public int paletteIndex { get; private set; }
     private Dictionary<KeyCode, bool> keyPressed = new Dictionary<KeyCode, bool>();
     private int m_HistoryValue;
-    private CanvasHistoryCache m_HistoryCache;
+    public CanvasHistoryCache m_HistoryCache;
 
     private bool isDirty;
 
@@ -521,9 +521,14 @@ public class uPixel : EditorWindow
         {
             Rect rect = GUILayoutUtility.GetRect(32, 32);
             GUILayout.Space(6);
-            if (historyIndex + i < pixelAsset.GetHistoryLengthWithFuture())
+            if (historyIndex + i <= pixelAsset.GetHistoryLengthWithFuture())
             {
-                EditorGUI.DrawPreviewTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i));
+                if (historyIndex + i <= pixelAsset.GetHistoryLength())
+                    EditorGUI.DrawPreviewTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i));
+                else
+                {
+                    GUI.DrawTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i), ScaleMode.StretchToFill, true, 0f, new Color(1f,1f,1f,0.2f), 0f, 0f);
+                }
                 if (rect.Contains(e.mousePosition))
                 {
                     // Draw overlay/frame

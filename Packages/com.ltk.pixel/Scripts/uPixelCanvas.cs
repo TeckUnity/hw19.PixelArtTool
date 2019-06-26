@@ -313,10 +313,10 @@ public class uPixelCanvas : ScriptableObject
 
     public Texture2D GetTextureAtTime(int operation)
     {
-        if (operation > CanvasOpsTip)
+        if (operation >= CanvasOpsTip)
         {
             ResetFrames();
-            ExecuteCanvasOps(CanvasOpsTip, operation);
+            ExecuteCanvasOps(0, operation);
             Texture2D tex = ToTexture2D();
             ExecuteCanvasOps(0, CanvasOpsTip);
             return tex;
@@ -324,7 +324,7 @@ public class uPixelCanvas : ScriptableObject
         else
         {
             ResetFrames();
-            ExecuteCanvasOps(0, operation + 1);
+            ExecuteCanvasOps(0, operation);
             Texture2D tex = ToTexture2D();
             ExecuteCanvasOps(operation, CanvasOpsTip);
             return tex;
