@@ -149,6 +149,18 @@ public class uPixel : EditorWindow
         SetDirty(true);
     }
 
+    public void ClearOverlay()
+    {
+        m_OverlayBuffer.Clear();
+        SetDirty(true);
+    }
+
+    public void DrawOverlay(Vector2Int coord)
+    {
+        m_OverlayBuffer.SetPixel(coord, 0);
+        SetDirty(true);
+    }
+
     //public void FlushBuffer()
     //{
     //    m_DrawBuffer.Flush(ref pixelAsset.GetCurrentFrame().PaletteIndices);
@@ -196,6 +208,10 @@ public class uPixel : EditorWindow
         for (int i = 0; i < colors.Length; i++)
         {
             colors[i] = pixelAsset.Palette.Colors[m_DrawBuffer.Indices[i] < 0 ? pixelAsset.GetCurrentFrame().PaletteIndices[i] : m_DrawBuffer.Indices[i]];
+        }
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = Color32.Lerp(colors[i], colors[i].Luminance() > 0.5f ? Color.black : Color.white, m_OverlayBuffer.Indices[i] >= 0 ? 0.5f : 0);
         }
         (m_Image.image as Texture2D).SetPixels32(colors);
         (m_Image.image as Texture2D).Apply();
@@ -301,6 +317,14 @@ public class uPixel : EditorWindow
         window.CyclePalette(-1);
     }
 
+    [Shortcut("uPixel/Marquee Select", typeof(uPixel), KeyCode.M)]
+    static void MarqueeSelectShortcut()
+    {
+        MouseUpEvent e = MouseUpEvent.GetPooled();
+        e.target = m_Root.Q<Toggle>(name: "MarqueeSelectTool");
+        window.SwitchTool(e);
+    }
+
     void OnEnable()
     {
         UnityEditor.Undo.postprocessModifications += OnPropMod;
@@ -373,7 +397,7 @@ public class uPixel : EditorWindow
                 entry.BindProperty(colorsProp.GetArrayElementAtIndex(i));
                 entry.showEyeDropper = false;
                 entry.showAlpha = false;
-                entry.style.width = entry.style.height = 16;
+                entry.style.width = entry.style.height = 18;
                 entry.style.marginLeft = entry.style.marginRight = 0;
                 entry.style.marginTop = entry.style.marginBottom = 0;
                 entry.style.borderColor = Color.white;
@@ -396,12 +420,13 @@ public class uPixel : EditorWindow
                 });
                 entry.style.backgroundImage = EditorGUIUtility.whiteTexture;
                 entry.style.unityBackgroundImageTintColor = (Color)pixelAsset.Palette.Colors[i];
-                entry.style.width = entry.style.height = 14;
+                entry.style.width = entry.style.height = 16;
                 entry.style.marginLeft = entry.style.marginRight = 1;
                 entry.style.marginTop = entry.style.marginBottom = 1;
                 palette.Add(entry);
             }
         }
+        palette.style.height = (pixelAsset.Palette.Colors.Length / 4) * 18;
     }
 
     private void PaletteDrawOnGUI()
@@ -448,7 +473,8 @@ public class uPixel : EditorWindow
         history.style.width = this.position.width;
         history.style.top = this.position.height - 64;
         var palette = m_Root.Q<VisualElement>(name: "palette");
-        palette.style.left = this.position.xMax - 64;
+        palette.style.left = this.position.xMax - 18 * 4;
+        palette.style.width = 18 * 4;
         InitImage();
     }
 
@@ -527,7 +553,7 @@ public class uPixel : EditorWindow
                     EditorGUI.DrawPreviewTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i));
                 else
                 {
-                    GUI.DrawTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i), ScaleMode.StretchToFill, true, 0f, new Color(1f,1f,1f,0.2f), 0f, 0f);
+                    GUI.DrawTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i), ScaleMode.StretchToFill, true, 0f, new Color(1f, 1f, 1f, 0.2f), 0f, 0f);
                 }
                 if (rect.Contains(e.mousePosition))
                 {
