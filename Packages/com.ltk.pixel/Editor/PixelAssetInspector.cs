@@ -60,6 +60,7 @@ public class PixelAssetInspector : Editor
         var frameIndex = new IntegerField("Frame");
         frameIndex.BindProperty(serializedObject.FindProperty("FrameIndex"));
         frameIndex.RegisterValueChangedCallback(ChangeFrame);
+        frameIndex.SetEnabled(false);
         m_Root.Add(frameIndex);
         m_Image = new Image();
         m_Image.image = m_Texture;
