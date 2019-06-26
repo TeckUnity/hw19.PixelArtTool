@@ -5,7 +5,7 @@
         <VisualElement name="History" style="position: absolute; top: 450px; left: -1px; bottom: -543px; width: 540px;">
             <Style path="Assets/uPixel.uss" />
             <Label text="History View" name="History" style="height: 13px;" />
-            <VisualElement name="HistoryDraw" text="DrawTextureAlpha" />
+            <VisualElement name="HistoryDraw" text="DrawTextureAlpha" style="align-items: center;" />
         </VisualElement>
     </VisualElement>
     <VisualElement name="menu" class="toolbar">
@@ -20,5 +20,8 @@
         <Toggle name="EyedropperTool" text="E" />
         <Toggle name="LineTool" text="L" />
         <Toggle text="M" />
+    </VisualElement>
+    <VisualElement name="palette" style="position: absolute; width: 64px; height: 128px; top: 20px; left: 276px; flex-direction: row; align-items: flex-start; align-self: auto; flex-wrap: wrap;">
+        <Style path="Assets/uPixel.uss" />
     </VisualElement>
 </UXML>

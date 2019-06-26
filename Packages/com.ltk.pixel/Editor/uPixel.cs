@@ -5,6 +5,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 using System.Text.RegularExpressions;
 using UnityEditor.ShortcutManagement;
 
@@ -325,13 +326,33 @@ public class uPixel : EditorWindow
 
         m_Image = m_Root.Q<Image>();
         var canvas = m_Root.Q<VisualElement>(className: "canvas");
-        var history = canvas.Q<VisualElement>(name: "History");
+        var history = m_Root.Q<VisualElement>(name: "History");
+        // history.style.width = this.position.width;
+        // history.style.top = this.position.height - history.style.height.value.value;
         VisualElement HistoryDrawParent = history.Q<VisualElement>(name: "HistoryDraw");
         HistoryDrawParent.Add(new IMGUIContainer(HistoryDrawOnGUI));
         InitImage();
+        var palette = m_Root.Q<VisualElement>(name: "palette");
+        palette.style.backgroundColor = Color.black;
+        var paletteSO = new SerializedObject(pixelAsset.Palette);
+        var colorsProp = paletteSO.FindProperty("Colors");
+        for (int i = 0; i < colorsProp.arraySize; i++)
+        {
+            var entry = new ColorField();
+            entry.BindProperty(colorsProp.GetArrayElementAtIndex(i));
+            entry.showEyeDropper = false;
+            entry.style.width = 16;
+            entry.RegisterValueChangedCallback(OnPaletteEdit);
+            palette.Add(entry);
+        }
 
         m_HistoryValue = pixelAsset.GetHistoryLength();
         
+    }
+
+    private void OnPaletteEdit(ChangeEvent<Color> e)
+    {
+        InitImage();
     }
 
     private void OnDisable()
@@ -341,6 +362,12 @@ public class uPixel : EditorWindow
 
     void OnGeometryChanged(GeometryChangedEvent e)
     {
+        m_Root.Q<VisualElement>(className: "canvas").style.height = this.position.height;
+        var history = m_Root.Q<VisualElement>(name: "History");
+        history.style.width = this.position.width;
+        history.style.top = this.position.height - 64;
+        var palette = m_Root.Q<VisualElement>(name: "palette");
+        palette.style.left = this.position.xMax - 64;
         InitImage();
     }
 
