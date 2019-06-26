@@ -1,35 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xmlns:upm="UnityEditor.PackageManager.UI"
-
-xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
-xsi:schemaLocation="
-                        UnityEngine.UIElements ../../../../UIElementsSchema/UnityEngine.UIElements.xsd
-                        UnityEditor.UIElements ../../../../UIElementsSchema/UnityEditor.UIElements.xsd
-                        UnityEditor.PackageManager.UI ../../../../UIElementsSchema/UnityEditor.PackageManager.UI.xsd
-"
->
-    <engine:VisualElement name="canvas" class="canvas">
+<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <VisualElement name="canvas" class="canvas">
         <Style path="Assets/uPixel.uss" />
-        <engine:Image />
+        <Image />
         <VisualElement name="History" style="position: absolute; top: 450px; left: -1px; bottom: -543px; width: 540px;">
             <Style path="Assets/uPixel.uss" />
-            <Label text="Edit History" name="HistoryTitle" style="height: 13px;" />
-            <VisualElement name="HistoryDraw" />
+            <Label text="History View" name="History" style="height: 13px;" />
+            <VisualElement name="HistoryDraw" text="DrawTextureAlpha" />
         </VisualElement>
-    </engine:VisualElement>
-    <engine:VisualElement name="menu" class="toolbar">
-        <engine:Label text="File" />
-        <engine:Label text="Edit" />
-        <engine:Label text="Help" />
-    </engine:VisualElement>
-    <engine:VisualElement name="toolbar" class="toolbar" style="width:48px">
-        <engine:Toggle name="DrawTool" text="B" />
-        <engine:Toggle name="EyedropperTool" text="E" />
-        <engine:Toggle name="LineTool" text="L" />
-        <engine:Toggle text="M" />
-    </engine:VisualElement>
-</engine:UXML>
+    </VisualElement>
+    <VisualElement name="menu" class="toolbar">
+        <Style path="Assets/uPixel.uss" />
+        <Label text="File" />
+        <Label text="Edit" />
+        <Label text="Help" />
+    </VisualElement>
+    <VisualElement name="toolbar" class="toolbar" style="width: 48px;">
+        <Style path="Assets/uPixel.uss" />
+        <Toggle name="DrawTool" text="B" />
+        <Toggle name="EyedropperTool" text="E" />
+        <Toggle name="LineTool" text="L" />
+        <Toggle text="M" />
+    </VisualElement>
+</UXML>
