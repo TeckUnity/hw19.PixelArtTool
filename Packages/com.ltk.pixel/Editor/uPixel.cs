@@ -444,7 +444,7 @@ public class uPixel : EditorWindow
         {
             if (mod.currentValue.target is uPixelCanvas)
             {
-                Debug.LogFormat("Undo mod {0}", mod.currentValue.propertyPath);
+                // Debug.LogFormat("Undo mod {0}", mod.currentValue.propertyPath);
             }
         }
         return modifications;
