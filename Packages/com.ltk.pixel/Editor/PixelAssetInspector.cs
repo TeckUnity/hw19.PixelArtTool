@@ -22,7 +22,7 @@ public class PixelAssetInspector : Editor
     public override VisualElement CreateInspectorGUI()
     {
         m_Root = new VisualElement();
-        // m_Root.Bind(serializedObject);
+        // root.Bind(serializedObject);
         // SerializedProperty property = serializedObject.GetIterator();
         // if (property.NextVisible(true)) // Expand first child.
         // {

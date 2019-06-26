@@ -309,7 +309,7 @@ public class uPixelCanvas : ScriptableObject
     public Texture2D GetTextureAtTime(int operation)
     {
         ResetFrames();
-        ExecuteCanvasOps(0, operation+1);
+        ExecuteCanvasOps(0, operation + 1);
         Texture2D tex = ToTexture2D();
         ExecuteCanvasOps(operation, CanvasOpsTip);
         return tex;
