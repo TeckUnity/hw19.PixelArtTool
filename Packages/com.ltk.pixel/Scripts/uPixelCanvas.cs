@@ -78,7 +78,7 @@ public class uPixelCanvas : ScriptableObject
 
     // The plus & minus 1 used around KEYFRAME_RATE are because we don't need to have a key frame at frame 0 (because we know it's all zero)
     private static readonly int KEYFRAME_RATE = 64; // Generate keyframes every KEYFRAME_RATE frames
-    private static readonly Vector2Int DEFAULT_SIZE = new Vector2Int(64, 64);
+    private static readonly Vector2Int DEFAULT_SIZE = new Vector2Int(16, 16);
 
     public Vector2Int Size;
     public Palette Palette;
@@ -191,6 +191,7 @@ public class uPixelCanvas : ScriptableObject
         }
         FrameIndex++;
         Frames.Insert(FrameIndex, newFrame);
+        Debug.Log(Frames.Count);
     }
 
     public void Resize(Vector2Int newSize)
@@ -315,6 +316,8 @@ public class uPixelCanvas : ScriptableObject
     {
         if (operation >= CanvasOpsTip)
         {
+            // TODO: These two ExecuteCanvasOps calls result in an additional Frame getting created
+            // when doing AddFrame
             ResetFrames();
             ExecuteCanvasOps(0, operation);
             Texture2D tex = ToTexture2D();

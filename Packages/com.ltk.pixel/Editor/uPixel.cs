@@ -549,6 +549,10 @@ public class uPixel : EditorWindow
             GUILayout.Space(6);
             if (historyIndex + i <= pixelAsset.GetHistoryLengthWithFuture())
             {
+                if (historyIndex + i == pixelAsset.GetHistoryLength())
+                {
+                    EditorGUI.DrawPreviewTexture(new RectOffset(2, 2, 2, 2).Add(rect), EditorGUIUtility.whiteTexture);
+                }
                 if (historyIndex + i <= pixelAsset.GetHistoryLength())
                     EditorGUI.DrawPreviewTexture(rect, m_HistoryCache.GetHistoryPreview(pixelAsset, historyIndex + i));
                 else
@@ -557,11 +561,9 @@ public class uPixel : EditorWindow
                 }
                 if (rect.Contains(e.mousePosition))
                 {
-                    // Draw overlay/frame
                     if (e.type == EventType.MouseDown && e.button == 0)
                     {
                         // TODO: Set history state
-                        Debug.Log(historyIndex + i);
                         pixelAsset.StepHistoryTo(historyIndex + i);
                         InitImage();
                         m_HistoryCache.ClearCache();
@@ -572,10 +574,18 @@ public class uPixel : EditorWindow
             {
                 EditorGUI.DrawRect(rect, new Color(0.2f, 0.2f, 0.2f));
             }
+            if (e.type == EventType.ScrollWheel && rect.Contains(e.mousePosition))
+            {
+                m_HistoryValue = Mathf.Clamp(m_HistoryValue + (int)Mathf.Sign(e.delta.y), 0, pixelAsset.GetHistoryLengthWithFuture());
+                pixelAsset.StepHistoryTo(m_HistoryValue);
+                InitImage();
+                m_HistoryCache.ClearCache();
+            }
         }
 
         GUILayout.EndHorizontal();
-        m_HistoryValue = Mathf.FloorToInt(GUILayout.HorizontalSlider(m_HistoryValue, 0, pixelAsset.GetHistoryLength()));
+        // m_HistoryValue = EditorGUILayout.IntSlider(GUIContent.none, m_HistoryValue, 5, pixelAsset.GetHistoryLengthWithFuture());
+        m_HistoryValue = Mathf.FloorToInt(GUILayout.HorizontalSlider(m_HistoryValue, 5, pixelAsset.GetHistoryLengthWithFuture()));
     }
 
     void InitImage()

@@ -2,11 +2,6 @@
     <VisualElement name="canvas" class="canvas">
         <Style path="Assets/uPixel.uss" />
         <Image />
-        <VisualElement name="History" style="position: absolute; top: 450px; left: -1px; bottom: -543px; width: 540px;">
-            <Style path="Assets/uPixel.uss" />
-            <Label text="History View" name="History" style="height: 13px;" />
-            <VisualElement name="HistoryDraw" text="DrawTextureAlpha" style="align-items: center;" />
-        </VisualElement>
     </VisualElement>
     <VisualElement name="menu" class="toolbar">
         <Style path="Assets/uPixel.uss" />
@@ -24,5 +19,10 @@
     </VisualElement>
     <VisualElement name="palette" focusable="false" picking-mode="Ignore" style="position: absolute; width: 64px; height: 128px; top: 20px; left: 276px; flex-direction: row; align-items: stretch; align-self: auto; flex-wrap: wrap;">
         <Style path="Assets/uPixel.uss" />
+    </VisualElement>
+    <VisualElement name="History" style="position: absolute; top: 450px; left: -1px; bottom: -543px; width: 540px; background-color: rgb(0, 0, 0);">
+        <Style path="Assets/uPixel.uss" />
+        <Label text="History View" name="History" style="height: 13px;" />
+        <VisualElement name="HistoryDraw" text="DrawTextureAlpha" style="align-items: center;" />
     </VisualElement>
 </UXML>
