@@ -6,16 +6,47 @@ using UnityEngine;
 [System.Serializable]
 public class uPixelCanvasOp
 {
+    public enum OpType
+    {
+        PixelSet,
+        Resize,
+        AddFrame,
+        RemoveFrame,
+        GroupOp,
+    };
+
+    [System.Serializable]
+    public class ResizeData
+    {
+        public Vector2Int size;
+    }
+
+    public OpType type = OpType.PixelSet;
     public bool includesSnapshot;
+    public bool duplicate;
     public int frame = 0;
     public byte value;
+    public ResizeData resize;
     public List<int> positions;
+    public List<uPixelCanvasOp> subOps;
 
     public void Execute(uPixelCanvas canvas)
     {
-        foreach (var p in positions)
+        canvas.FrameIndex = frame;
+        if (type == OpType.PixelSet)
         {
-            canvas.GetFrame(frame).PaletteIndices[p] = value;
+            foreach (var p in positions)
+            {
+                canvas.GetFrame(frame).PaletteIndices[p] = value;
+            }
+        }
+        else if (type == OpType.AddFrame)
+        {
+            canvas.AddFrameInternal(duplicate);
+        }
+        else if (type == OpType.Resize)
+        {
+            canvas.ResizeInternal(resize.size);
         }
     }
 }
@@ -62,6 +93,15 @@ public class uPixelCanvas : ScriptableObject
 
     public void AddFrame(bool duplicate = false)
     {
+        uPixelCanvasOp addFrameOp = new uPixelCanvasOp();
+        addFrameOp.type = uPixelCanvasOp.OpType.AddFrame;
+        addFrameOp.frame = FrameIndex;
+        addFrameOp.duplicate = duplicate;
+        DoCanvasOperation(addFrameOp);
+    }
+    //TODO: make private
+    public void AddFrameInternal(bool duplicate = false)
+    {
         Frame newFrame = new Frame(this);
         if (duplicate)
         {
@@ -72,6 +112,16 @@ public class uPixelCanvas : ScriptableObject
     }
 
     public void Resize(Vector2Int newSize)
+    {
+        uPixelCanvasOp resizeOp = new uPixelCanvasOp();
+        resizeOp.type = uPixelCanvasOp.OpType.Resize;
+        resizeOp.resize = new uPixelCanvasOp.ResizeData();
+        resizeOp.resize.size = newSize;
+        DoCanvasOperation(resizeOp);
+    }
+
+    //TODO: make private
+    public void ResizeInternal(Vector2Int newSize)
     {
         Vector2Int delta = newSize - Size;
         int leftPad = delta.x / 2;
@@ -109,6 +159,7 @@ public class uPixelCanvas : ScriptableObject
 
     public void ResetFrames()
     {
+        Size = DEFAULT_SIZE;
         Frames = new List<Frame>() { new Frame(this) };
     }
 
@@ -173,7 +224,7 @@ public class uPixelCanvas : ScriptableObject
     public Texture2D GetTextureAtTime(int operation)
     {
         ResetFrames();
-        ExecuteCanvasOps(0, operation);
+        ExecuteCanvasOps(0, operation+1);
         Texture2D tex = ToTexture2D();
         ExecuteCanvasOps(operation, CanvasOpsTip);
         return tex;
