@@ -396,7 +396,7 @@ public class uPixel : EditorWindow
     }
     void HistoryDrawOnGUI()
     {
-        GUILayout.BeginHorizontal("History preview");
+        GUILayout.BeginHorizontal();
 
         int historyIndex = Math.Max(m_HistoryValue - 5, 0);
         for (int i = 0; i < 10; ++i)
