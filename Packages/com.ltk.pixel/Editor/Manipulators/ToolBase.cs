@@ -108,6 +108,7 @@ public class ToolBase : MouseManipulator
         //uPixel.FlushBuffer();
         pixelOp.positions = uPixel.GetBrush();
         pixelOp.value = (byte)uPixel.paletteIndex;
+        pixelOp.frame = uPixel.pixelAsset.FrameIndex;
         if (pixelOp.positions.Count > 0)
         {
             uPixel.pixelAsset.DoCanvasOperation(pixelOp);
