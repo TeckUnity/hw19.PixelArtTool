@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -12,7 +13,8 @@ public class uPixelCanvasOp
         Resize,
         AddFrame,
         RemoveFrame,
-        GroupOp,
+        PaletteSet,
+        BlitOp,
     };
 
     [System.Serializable]
@@ -34,6 +36,14 @@ public class uPixelCanvasOp
         public List<Group> pixelSets = null;
     }
 
+    [System.Serializable]
+    public class BlitData
+    {
+        public Vector2Int offset;
+        public Vector2Int size;
+        public Color32[] pixels;
+    }
+
     public OpType type = OpType.PixelSet;
     public bool includesSnapshot;
     public bool duplicate;
@@ -42,6 +52,8 @@ public class uPixelCanvasOp
     public ResizeData resize = null;
     public List<int> positions = null;
     public GroupData group = null;
+    public Palette palette = null;
+    public BlitData blitData = null;
 
     public void Execute(uPixelCanvas canvas)
     {
@@ -60,6 +72,14 @@ public class uPixelCanvasOp
         else if (type == OpType.Resize)
         {
             canvas.ResizeInternal(resize.size);
+        }
+        else if (type == OpType.PaletteSet)
+        {
+            canvas.SetPaletteInternal(palette);
+        }
+        else if (type == OpType.BlitOp)
+        {
+            canvas.DoBlitInternal(blitData.pixels); // TODO not using size / offset yet
         }
     }
 }
@@ -81,7 +101,7 @@ public class uPixelCanvas : ScriptableObject
     private static readonly Vector2Int DEFAULT_SIZE = new Vector2Int(16, 16);
 
     public Vector2Int Size;
-    public Palette Palette;
+    public Palette Palette; // TODO make private
     public int FrameIndex;
     [SerializeField]
     private int CanvasOpsTip;
@@ -231,6 +251,40 @@ public class uPixelCanvas : ScriptableObject
         Size = newSize;
     }
 
+    public void SetPalette(Palette palette)
+    {
+        uPixelCanvasOp setPaletteOp = new uPixelCanvasOp();
+        setPaletteOp.type = uPixelCanvasOp.OpType.PaletteSet;
+        setPaletteOp.palette = palette;
+        DoCanvasOperation(setPaletteOp);
+    }
+
+    public void SetPaletteInternal(Palette palette)
+    {
+        Palette = palette;
+    }
+
+    public void DoBlit(Vector2Int offset, Vector2Int size, Color32[] pixels)
+    {
+        uPixelCanvasOp blitOp = new uPixelCanvasOp();
+        blitOp.type = uPixelCanvasOp.OpType.BlitOp;
+        blitOp.blitData = new uPixelCanvasOp.BlitData();
+        blitOp.blitData.size = size;
+        blitOp.blitData.offset = offset;
+        blitOp.blitData.pixels = pixels;
+        DoCanvasOperation(blitOp);
+    }
+
+    public void DoBlitInternal(Color32[] pixels)
+    {
+        var currentFrame = GetCurrentFrame();
+        currentFrame.PaletteIndices = new int[pixels.Length];
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            currentFrame.PaletteIndices[i] = Palette.GetIndexOfColor(pixels[i]);
+        }
+    }
+
     public Frame GetCurrentFrame()
     {
         return Frames[FrameIndex];
@@ -279,18 +333,30 @@ public class uPixelCanvas : ScriptableObject
         var importTexture = new Texture2D(2, 2);
         byte[] fileData = File.ReadAllBytes(importPath);
         importTexture.LoadImage(fileData);
+
         // Palette loads unique colors from the texture
-        Palette.PopulateFromTexture(importTexture);
-        // TODO for now clear the frame list down to one frame
-        Frames = new List<Frame>() { new Frame(this) };
-        var thisFrame = GetCurrentFrame();
-        // Now walk the texture and get the palette index for each pixel
-        var pixels = importTexture.GetPixels32();
-        thisFrame.PaletteIndices = new int[pixels.Length];
-        for (int i = 0; i < pixels.Length; i++)
+        if (Palette == null)
         {
-            thisFrame.PaletteIndices[i] = Palette.GetIndexOfColor(pixels[i]);
+            // TODO Not sure what the best thing to do here it - to get a Palette we need to create the asset.
+            // TODO For now I'm going to create it in the same location as this Canvas:
+            var newPalette = CreateInstance<Palette>();
+            string path = AssetDatabase.GetAssetPath(this);
+            path = path.Substring(0, path.LastIndexOf("."));
+            path += "_palette.asset";
+            AssetDatabase.CreateAsset (newPalette, path);
+            AssetDatabase.SaveAssets ();
+            AssetDatabase.Refresh();
+            this.SetPalette(newPalette);
         }
+        Palette.PopulateFromTexture(importTexture);
+
+        var newSize = new Vector2Int(importTexture.width, importTexture.height);
+
+        this.Resize(newSize);
+
+        // TODO we aren't actually using the size and offset yet...
+        DoBlit(new Vector2Int(0, 0), newSize, importTexture.GetPixels32());
+
     }
 
     public Texture2D ToTexture2D(int frameOverride = -1)

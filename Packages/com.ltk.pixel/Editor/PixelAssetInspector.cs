@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
@@ -62,6 +63,11 @@ public class PixelAssetInspector : Editor
         frameIndex.RegisterValueChangedCallback(ChangeFrame);
         frameIndex.SetEnabled(false);
         m_Root.Add(frameIndex);
+
+        var importFrameButton = new Button(() => ImportFrame());
+        importFrameButton.text = "Import Image";
+        m_Root.Add(importFrameButton);
+
         m_Image = new Image();
         m_Image.image = m_Texture;
         m_Image.style.width = m_Image.style.height = 128;
@@ -90,6 +96,19 @@ public class PixelAssetInspector : Editor
         m_Image.image = m_Texture;
         m_Root.Q<Vector2IntField>().value = newSize;
         Repaint();
+    }
+
+    void ImportFrame()
+    {
+        var importPath = EditorUtility.OpenFilePanel("Select image", "", "png");
+        if (importPath.Length > 0)
+        {
+            if (File.Exists(importPath))
+            {
+                var pixelAsset = target as uPixelCanvas;
+                pixelAsset.ImportPng(importPath);
+            }
+        }
     }
 
     void RandomisePixels(MouseDownEvent e)
