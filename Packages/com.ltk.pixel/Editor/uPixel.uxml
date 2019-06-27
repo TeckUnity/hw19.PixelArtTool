@@ -15,7 +15,7 @@
         <Toggle name="EyedropperTool" text="E" />
         <Toggle name="LineTool" text="L" />
         <Toggle name="MarqueeSelectTool" text="M" />
-        <Toggle name="FloodFillTool" text="F" />
+        <Toggle name="FloodTool" text="F" />
     </VisualElement>
     <VisualElement name="palette" focusable="false" picking-mode="Ignore" style="position: absolute; width: 64px; height: 128px; top: 20px; left: 276px; flex-direction: row; align-items: stretch; align-self: auto; flex-wrap: wrap;">
         <Style path="Assets/uPixel.uss" />

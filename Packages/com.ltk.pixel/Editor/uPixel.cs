@@ -318,6 +318,22 @@ public class uPixel : EditorWindow
         window.SwitchTool(e);
     }
 
+    [Shortcut("uPixel/Marquee Select", typeof(uPixel), KeyCode.M)]
+    static void MarqueeSelectShortcut()
+    {
+        MouseUpEvent e = MouseUpEvent.GetPooled();
+        e.target = m_Root.Q<Toggle>(name: "MarqueeSelectTool");
+        window.SwitchTool(e);
+    }
+
+    [Shortcut("uPixel/Flood Fill", typeof(uPixel), KeyCode.G)]
+    static void FloodFillShortcut()
+    {
+        MouseUpEvent e = MouseUpEvent.GetPooled();
+        e.target = m_Root.Q<Toggle>(name: "FloodTool");
+        window.SwitchTool(e);
+    }
+
     [Shortcut("uPixel/Add Frame", typeof(uPixel), KeyCode.Equals, ShortcutModifiers.Shift)]
     static void AddFrameShortcut()
     {
@@ -346,14 +362,6 @@ public class uPixel : EditorWindow
     static void PrevColorShortcut()
     {
         window.CyclePalette(-1);
-    }
-
-    [Shortcut("uPixel/Marquee Select", typeof(uPixel), KeyCode.M)]
-    static void MarqueeSelectShortcut()
-    {
-        MouseUpEvent e = MouseUpEvent.GetPooled();
-        e.target = m_Root.Q<Toggle>(name: "MarqueeSelectTool");
-        window.SwitchTool(e);
     }
 
     void OnEnable()
