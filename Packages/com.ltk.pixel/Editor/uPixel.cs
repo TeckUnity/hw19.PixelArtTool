@@ -242,7 +242,7 @@ public class uPixel : EditorWindow
         }
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = Color32.Lerp(colors[i], colors[i].Luminance() > 0.5f ? Color.black : Color.white, m_OverlayBuffer.Indices[i] >= 0 ? 0.5f : 0);
+            colors[i] = Color32.Lerp(colors[i], colors[i].Luminance() > 0.5f ? Color.black : Color.white, m_OverlayBuffer.Indices[i] >= 0 ? 0.2f : 0);
         }
         (m_Image.image as Texture2D).SetPixels32(colors);
         (m_Image.image as Texture2D).Apply();
@@ -655,8 +655,6 @@ public class uPixel : EditorWindow
             colors[i] = Color.clear;
         }
         t.SetPixels32(colors);
-
-
     }
 
     public void AddFrame(bool duplicate = false)
@@ -728,6 +726,16 @@ public class uPixel : EditorWindow
         if (pixelAsset.CheckUndoRedo())
         {
             SetDirty(true);
+        }
+        RefreshInspector();
+    }
+
+    public void RefreshInspector()
+    {
+        PixelAssetInspector inspector = Resources.FindObjectsOfTypeAll(typeof(PixelAssetInspector)).FirstOrDefault() as PixelAssetInspector;
+        if (inspector.target as uPixelCanvas == pixelAsset)
+        {
+            inspector.Refresh();
         }
     }
 

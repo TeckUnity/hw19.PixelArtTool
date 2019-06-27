@@ -110,9 +110,10 @@ public class ToolBase : MouseManipulator
         if (pixelOp.positions.Count > 0)
         {
             uPixel.pixelAsset.DoCanvasOperation(pixelOp);
-            uPixel.m_HistoryCache.ClearCache(uPixel.pixelAsset.GetHistoryLength()-1);
+            uPixel.m_HistoryCache.ClearCache(uPixel.pixelAsset.GetHistoryLength() - 1);
             pixelOp = new uPixelCanvasOp();
         }
+        uPixel.RefreshInspector();
         target.ReleaseMouse();
         e.StopPropagation();
     }

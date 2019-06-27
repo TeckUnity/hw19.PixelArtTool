@@ -81,7 +81,7 @@ public class PixelAssetInspector : Editor
         Refresh();
     }
 
-    void Refresh()
+    public void Refresh()
     {
         var pixelAsset = target as uPixelCanvas;
         m_Texture = pixelAsset.ToTexture2D();
