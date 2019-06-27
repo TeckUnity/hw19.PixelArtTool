@@ -45,6 +45,7 @@ public class uPixelCanvasOp
         public Vector2Int offset;
         public Vector2Int size;
         public Color32[] pixels;
+        public int frameIndex; // frame we blit to
     }
 
     public OpType type = OpType.PixelSet;
@@ -82,7 +83,7 @@ public class uPixelCanvasOp
         }
         else if (type == OpType.BlitOp)
         {
-            canvas.DoBlitInternal(blitData.pixels); // TODO not using size / offset yet
+            canvas.DoBlitInternal(blitData); // TODO not using size / offset yet
         }
     }
 }
@@ -267,7 +268,7 @@ public class uPixelCanvas : ScriptableObject
         Palette = palette;
     }
 
-    public void DoBlit(Vector2Int offset, Vector2Int size, Color32[] pixels)
+    public void DoBlit(Vector2Int offset, Vector2Int size, Color32[] pixels, int frameIndex)
     {
         uPixelCanvasOp blitOp = new uPixelCanvasOp();
         blitOp.type = uPixelCanvasOp.OpType.BlitOp;
@@ -275,16 +276,18 @@ public class uPixelCanvas : ScriptableObject
         blitOp.blitData.size = size;
         blitOp.blitData.offset = offset;
         blitOp.blitData.pixels = pixels;
+        blitOp.blitData.frameIndex = frameIndex;
         DoCanvasOperation(blitOp);
     }
 
-    public void DoBlitInternal(Color32[] pixels)
+    public void DoBlitInternal(uPixelCanvasOp.BlitData blitData)
     {
+        FrameIndex = blitData.frameIndex;
         var currentFrame = GetCurrentFrame();
-        currentFrame.PaletteIndices = new int[pixels.Length];
-        for (int i = 0; i < pixels.Length; i++)
+        currentFrame.PaletteIndices = new int[blitData.pixels.Length];
+        for (int i = 0; i < blitData.pixels.Length; i++)
         {
-            currentFrame.PaletteIndices[i] = Palette.GetIndexOfColor(pixels[i]);
+            currentFrame.PaletteIndices[i] = Palette.GetIndexOfColor(blitData.pixels[i]);
         }
     }
 
@@ -338,6 +341,9 @@ public class uPixelCanvas : ScriptableObject
         byte[] fileData = File.ReadAllBytes(importPath);
         importTexture.LoadImage(fileData);
 
+        // Add frame for this image:
+        this.AddFrame();
+
         // Palette loads unique colors from the texture
         if (Palette == null)
         {
@@ -359,7 +365,7 @@ public class uPixelCanvas : ScriptableObject
         this.Resize(newSize);
 
         // TODO we aren't actually using the size and offset yet...
-        DoBlit(new Vector2Int(0, 0), newSize, importTexture.GetPixels32());
+        DoBlit(new Vector2Int(0, 0), newSize, importTexture.GetPixels32(), this.Frames.Count - 1);
 
     }
 
