@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -332,6 +331,7 @@ public class uPixelCanvas : ScriptableObject
         }
     }
 
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
     public void ImportPng(string importPath)
     {
         var importTexture = new Texture2D(2, 2);
@@ -347,8 +347,8 @@ public class uPixelCanvas : ScriptableObject
             string path = AssetDatabase.GetAssetPath(this);
             path = path.Substring(0, path.LastIndexOf("."));
             path += "_palette.asset";
-            AssetDatabase.CreateAsset (newPalette, path);
-            AssetDatabase.SaveAssets ();
+            AssetDatabase.CreateAsset(newPalette, path);
+            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             this.SetPalette(newPalette);
         }
