@@ -91,6 +91,7 @@ public class uPixelCanvas : ScriptableObject
     public List<uPixelCanvasOp> CanvasOps;
     [System.NonSerialized]
     private List<Keyframe> Keyframes;
+    public bool FreezeFuture;
 
     [System.Serializable]
     public class Frame
@@ -117,6 +118,7 @@ public class uPixelCanvas : ScriptableObject
         CanvasOps = new List<uPixelCanvasOp>();
         CanvasOpsTip = 0;
         ShadowCanvasOpTip = 0;
+        FreezeFuture = false;
         ResetFrames();
     }
 
@@ -356,9 +358,15 @@ public class uPixelCanvas : ScriptableObject
 
     public void DoCanvasOperation(uPixelCanvasOp op)
     {
+        List<uPixelCanvasOp> rebaseFuture = null;
         // if a Redo history exists, calling this destroys this
         if (CanvasOps.Count > CanvasOpsTip)
         {
+            if (FreezeFuture)
+            {
+                rebaseFuture = CanvasOps.GetRange(CanvasOpsTip, CanvasOps.Count - CanvasOpsTip);
+            }
+
             CanvasOps.RemoveRange(CanvasOpsTip, CanvasOps.Count - CanvasOpsTip);
             TrimKeyFrames();
         }
@@ -372,6 +380,11 @@ public class uPixelCanvas : ScriptableObject
         if (CanvasOpsTip % KEYFRAME_RATE == 0 && CanvasOpsTip > 0)
         {
             GenerateKeyFrameNow();
+        }
+
+        if (rebaseFuture != null)
+        {
+            CanvasOps.AddRange(rebaseFuture);
         }
     }
 
@@ -393,6 +406,7 @@ public class uPixelCanvas : ScriptableObject
 
     public bool CheckUndoRedo()
     {
+        /*
         if (ShadowCanvasOpTip != CanvasOpsTip)
         {
             ResetFrames();
@@ -404,6 +418,7 @@ public class uPixelCanvas : ScriptableObject
             ShadowCanvasOpTip = CanvasOpsTip;
             return true;
         }
+        */
         return false;
     }
 }

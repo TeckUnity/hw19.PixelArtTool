@@ -466,7 +466,7 @@ public class uPixel : EditorWindow
         m_Root.Q<VisualElement>(className: "canvas").style.height = this.position.height;
         var history = m_Root.Q<VisualElement>(name: "History");
         history.style.width = this.position.width;
-        history.style.top = this.position.height - 64;
+        history.style.top = this.position.height - 96;
         var palette = m_Root.Q<VisualElement>(name: "palette");
         palette.style.left = this.position.xMax - 18 * 4;
         palette.style.width = 18 * 4;
@@ -577,10 +577,10 @@ public class uPixel : EditorWindow
                 m_HistoryCache.ClearCache();
             }
         }
-
         GUILayout.EndHorizontal();
         // m_HistoryValue = EditorGUILayout.IntSlider(GUIContent.none, m_HistoryValue, 5, pixelAsset.GetHistoryLengthWithFuture());
         m_HistoryValue = Mathf.FloorToInt(GUILayout.HorizontalSlider(m_HistoryValue, 5, pixelAsset.GetHistoryLengthWithFuture()));
+        pixelAsset.FreezeFuture = GUILayout.Toggle(pixelAsset.FreezeFuture, "Freeze Future");
     }
 
     void InitImage()
