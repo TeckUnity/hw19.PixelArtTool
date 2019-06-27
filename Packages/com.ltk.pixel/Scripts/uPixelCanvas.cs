@@ -243,6 +243,7 @@ public class uPixelCanvas : ScriptableObject
     {
         Size = DEFAULT_SIZE;
         Frames = new List<Frame>() { new Frame(this) };
+        FrameIndex = 0;
         if (Keyframes == null)
         {
             Keyframes = new List<Keyframe>();
@@ -337,9 +338,9 @@ public class uPixelCanvas : ScriptableObject
     private void ExecuteCanvasOps(int startIndex, int endIndex)
     {
         int jumpStart = startIndex;
-        if (startIndex < CanvasOpsTip)
+        if (endIndex < CanvasOpsTip)
         {
-            jumpStart = ApplyNearestKeyframe(jumpStart);
+            jumpStart = ApplyNearestKeyframe(endIndex);
         }
         int OpCount = CanvasOps.Count;
         for (int i = jumpStart; i < OpCount && i < endIndex; ++i)
