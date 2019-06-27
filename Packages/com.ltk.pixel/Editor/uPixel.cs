@@ -700,16 +700,29 @@ public class uPixel : EditorWindow
         window.m_DrawBuffer = new Buffer(pixelAsset);
         window.m_OverlayBuffer = new Buffer(pixelAsset);
 
-        float minLen = Math.Min(this.position.width, this.position.height);
-        float imageSize = minLen / 2f;
-
         //Texture2D t = pixelAsset != null ? pixelAsset.ToTexture2D() : Selection.activeObject as uPixelCanvas ? (Selection.activeObject as uPixelCanvas).ToTexture2D() : null;
         Texture2D t = m_HistoryCache.GetHistoryPreview(pixelAsset, pixelAsset.GetHistoryLength());
         m_Image.image = t;
-        m_Image.style.width = new StyleLength(imageSize);
-        m_Image.style.height = new StyleLength(imageSize);
-        m_Image.style.left = (this.position.width - imageSize) / 2f;
-        m_Image.style.top = (this.position.height - imageSize) / 2f;
+
+        var availW = position.width;
+        var availH = position.height - 96f; // 96 to leave space for history view
+
+        var imageW = 0f;
+        var imageH = 0f;
+        if (availW >= availH)
+        {
+            imageH = availH / 1.5f;
+            imageW = imageH * (t.width / (float)t.height);
+        }
+        else
+        {
+            imageW = availW / 1.5f;
+            imageH = imageW * (t.height / (float)t.width);
+        }
+        m_Image.style.height = new StyleLength(imageH);
+        m_Image.style.width = new StyleLength(imageW);
+        m_Image.style.left = (availW - imageW) / 2f;
+        m_Image.style.top = (availH - imageH) / 2f;
         Color32[] colors = new Color32[t.width * t.height];
         for (int i = 0; i < colors.Length; i++)
         {
