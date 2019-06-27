@@ -53,9 +53,19 @@ public class CanvasHistoryCache
         return e.texture;
     }
 
-    public void ClearCache()
+    public void ClearCache(int fromIndex)
     {
-        entries.RemoveRange(0, entries.Count);
+        if (fromIndex == 0)
+        {
+            entries.RemoveRange(0, entries.Count);
+        }
+        else
+        {
+            entries.RemoveAll((Entry e) =>
+            {
+                return e.id >= fromIndex;
+            });
+        }
     }
 }
 
@@ -199,6 +209,7 @@ public class uPixel : EditorWindow
         {
             return;
         }
+        pixelAsset.RerunHistory();
         Color32[] colors = new Color32[pixelAsset.GetCurrentFrame().PaletteIndices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
@@ -452,8 +463,8 @@ public class uPixel : EditorWindow
 
     private void OnPaletteEdit(ChangeEvent<Color> e)
     {
+        m_HistoryCache.ClearCache(0);
         InitImage();
-        m_HistoryCache.ClearCache();
     }
 
     private void OnDisable()
@@ -560,8 +571,9 @@ public class uPixel : EditorWindow
                     {
                         // TODO: Set history state
                         pixelAsset.StepHistoryTo(historyIndex + i);
+                        //m_HistoryCache.ClearCache(historyIndex + i);
                         InitImage();
-                        m_HistoryCache.ClearCache();
+                        ClearBuffer();
                     }
                 }
             }
@@ -573,8 +585,9 @@ public class uPixel : EditorWindow
             {
                 m_HistoryValue = Mathf.Clamp(m_HistoryValue + (int)Mathf.Sign(e.delta.y), 0, pixelAsset.GetHistoryLengthWithFuture());
                 pixelAsset.StepHistoryTo(m_HistoryValue);
+                //m_HistoryCache.ClearCache(m_HistoryValue);
                 InitImage();
-                m_HistoryCache.ClearCache();
+                ClearBuffer();
             }
         }
         GUILayout.EndHorizontal();
@@ -586,8 +599,9 @@ public class uPixel : EditorWindow
     void InitImage()
     {
         if (pixelAsset == null) return;
+        if (m_HistoryCache == null) return;
 
-        // pixelAsset.RerunHistory();
+        //pixelAsset.RerunHistory();
 
         window.m_DrawBuffer = new Buffer(pixelAsset);
         window.m_OverlayBuffer = new Buffer(pixelAsset);
@@ -595,7 +609,8 @@ public class uPixel : EditorWindow
         float minLen = Math.Min(this.position.width, this.position.height);
         float imageSize = minLen / 2f;
 
-        Texture2D t = pixelAsset != null ? pixelAsset.ToTexture2D() : Selection.activeObject as uPixelCanvas ? (Selection.activeObject as uPixelCanvas).ToTexture2D() : null;
+        //Texture2D t = pixelAsset != null ? pixelAsset.ToTexture2D() : Selection.activeObject as uPixelCanvas ? (Selection.activeObject as uPixelCanvas).ToTexture2D() : null;
+        Texture2D t = m_HistoryCache.GetHistoryPreview(pixelAsset, pixelAsset.GetHistoryLength());
         m_Image.image = t;
         m_Image.style.width = new StyleLength(imageSize);
         m_Image.style.height = new StyleLength(imageSize);
