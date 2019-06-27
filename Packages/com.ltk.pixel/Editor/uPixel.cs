@@ -706,24 +706,24 @@ public class uPixel : EditorWindow
         m_Image.image = t;
 
         var availW = position.width;
-        var availH = position.height - 96f; // 96 to leave space for history view
+        var availH = position.height - 200f; // about 100 at top and bottom for history view / replay
 
         var imageW = 0f;
         var imageH = 0f;
         if (availW >= availH)
         {
-            imageH = availH / 1.5f;
+            imageH = availH / 1.2f;
             imageW = imageH * (t.width / (float)t.height);
         }
         else
         {
-            imageW = availW / 1.5f;
+            imageW = availW / 1.2f;
             imageH = imageW * (t.height / (float)t.width);
         }
         m_Image.style.height = new StyleLength(imageH);
         m_Image.style.width = new StyleLength(imageW);
         m_Image.style.left = (availW - imageW) / 2f;
-        m_Image.style.top = (availH - imageH) / 2f;
+        m_Image.style.top = 100f + (availH - imageH) / 2f;
         Color32[] colors = new Color32[t.width * t.height];
         for (int i = 0; i < colors.Length; i++)
         {
