@@ -12,19 +12,19 @@
     <VisualElement name="toolbar" class="toolbar" style="width: 48px;">
         <Style path="Assets/uPixel.uss" />
         <Toggle name="DrawTool" text="B">
-            <VisualElement name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
+            <Image name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
         </Toggle>
         <Toggle name="EyedropperTool" text="E">
-            <VisualElement name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
+            <Image name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
         </Toggle>
         <Toggle name="LineTool" text="L">
-            <VisualElement name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
+            <Image name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
         </Toggle>
         <Toggle name="MarqueeSelectTool" text="M">
-            <VisualElement name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
+            <Image name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
         </Toggle>
         <Toggle name="FloodTool" text="F">
-            <VisualElement name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
+            <Image name="Icon" style="position: absolute; top: 0px; width: 24px; height: 24px; left: 16px;" />
         </Toggle>
     </VisualElement>
     <Image name="palette" style="position: relative; left: 0px; top: 0px; width: 72px; height: 72px; flex-wrap: wrap; flex-direction: row;">

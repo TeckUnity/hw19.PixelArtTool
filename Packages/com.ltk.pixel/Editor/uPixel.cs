@@ -409,6 +409,7 @@ public class uPixel : EditorWindow
         m_Root.Query<Toggle>().ForEach(o =>
         {
             o.RegisterCallback<MouseUpEvent>(SwitchTool);
+            o.Q<Image>().style.backgroundImage = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Icons/Icon_" + o.name + ".png");
             m_ToolButtons.Add(o);
         });
         m_Root.focusable = true;
