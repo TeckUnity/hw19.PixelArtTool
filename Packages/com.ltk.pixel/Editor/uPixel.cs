@@ -436,6 +436,7 @@ public class uPixel : EditorWindow
     private void DrawFrames()
     {
         var frames = m_Root.Q<Image>(name: "frames");
+        frames.Clear();
         CacheFrames();
         for (int i = 0; i < m_FrameCache.Count; i++)
         {
