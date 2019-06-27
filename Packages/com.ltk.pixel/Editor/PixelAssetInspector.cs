@@ -70,8 +70,21 @@ public class PixelAssetInspector : Editor
 
         m_Image = new Image();
         m_Image.image = m_Texture;
-        m_Image.style.width = m_Image.style.height = 128;
+        var desiredSize = 128f;
+        if (m_Texture.width >= m_Texture.height)
+        {
+            m_Image.style.width = desiredSize;
+            m_Image.style.height = desiredSize * (m_Texture.height / (float)m_Texture.width);
+        }
+        else
+        {
+            m_Image.style.height = desiredSize;
+            m_Image.style.width = desiredSize * (m_Texture.width / (float)m_Texture.height);
+        }
         // m_Image.RegisterCallback<MouseDownEvent>(RandomisePixels);
+        var spacer = new VisualElement();
+        spacer.style.height = 10;
+        m_Root.Add(spacer);
         m_Root.Add(m_Image);
         return m_Root;
     }
