@@ -86,10 +86,12 @@ public class uPixelCanvasOp
         }
         else if (type == OpType.PaletteSet)
         {
+            canvas.FrameIndex = (frame + canvas.Frames.Count) % canvas.Frames.Count;
             canvas.SetPaletteInternal(palette);
         }
         else if (type == OpType.BlitOp)
         {
+            canvas.FrameIndex = (frame + canvas.Frames.Count) % canvas.Frames.Count;
             canvas.DoBlitInternal(blitData); // TODO not using size / offset yet
         }
     }
