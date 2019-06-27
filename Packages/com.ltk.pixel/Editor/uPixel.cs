@@ -128,6 +128,7 @@ public class uPixel : EditorWindow
     private Dictionary<KeyCode, bool> keyPressed = new Dictionary<KeyCode, bool>();
     private int m_HistoryValue;
     public CanvasHistoryCache m_HistoryCache;
+    private Vector2Int[] m_Selection;
 
     private bool isDirty;
 
@@ -143,9 +144,16 @@ public class uPixel : EditorWindow
         SetDirty(true);
     }
 
-    public void DrawBuffer(Vector2Int coord)
+    public void DrawBuffer(params Vector2Int[] coords)
     {
-        m_DrawBuffer.SetPixel(coord, paletteIndex);
+        foreach (var coord in coords)
+        {
+            if (m_Selection != null && !m_Selection.Contains(coord))
+            {
+                continue;
+            }
+            m_DrawBuffer.SetPixel(coord, paletteIndex);
+        }
         SetDirty(true);
     }
 
@@ -155,9 +163,26 @@ public class uPixel : EditorWindow
         SetDirty(true);
     }
 
-    public void DrawOverlay(Vector2Int coord)
+    public void DrawOverlay(params Vector2Int[] coords)
     {
-        m_OverlayBuffer.SetPixel(coord, 0);
+        foreach (var coord in coords)
+        {
+            m_OverlayBuffer.SetPixel(coord, 0);
+        }
+        SetDirty(true);
+    }
+
+    public void SetSelection(params Vector2Int[] coords)
+    {
+        m_Selection = coords;
+        DrawOverlay(coords);
+        SetDirty(true);
+    }
+
+    public void ClearSelection()
+    {
+        m_Selection = null;
+        ClearOverlay();
         SetDirty(true);
     }
 

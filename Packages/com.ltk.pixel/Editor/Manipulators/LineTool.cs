@@ -24,10 +24,7 @@ public class LineTool : ToolBase
             target.CaptureMouse();
             m_ClickOrigin = GetImageCoord(Image, e.localMousePosition);
             Vector2Int[] coords = GetTargetCoords(m_ClickOrigin);
-            foreach (var coord in coords)
-            {
-                uPixel.DrawBuffer(coord);
-            }
+            uPixel.DrawBuffer(coords);
         }
         e.StopPropagation();
     }
@@ -52,10 +49,7 @@ public class LineTool : ToolBase
             }
         }
         Vector2Int[] coords = Line(m_ClickOrigin, mouseCoord);
-        foreach (var coord in coords)
-        {
-            uPixel.DrawBuffer(coord);
-        }
+        uPixel.DrawBuffer(coords);
         if (IsContinuous())
         {
             m_ClickOrigin = mouseCoord;
