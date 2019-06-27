@@ -359,7 +359,7 @@ public class uPixelCanvas : ScriptableObject
         importTexture.LoadImage(fileData);
 
         // Add frame for this image:
-        this.AddFrame();
+        this.AddFrame(Frames.Count - 1);
 
         // Palette loads unique colors from the texture
         if (Palette == null)
@@ -472,10 +472,14 @@ public class uPixelCanvas : ScriptableObject
 
         UnityEditor.Undo.RecordObject(this, string.Format("uPixelCanvas: {0}", op.GetType().ToString()));
         ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip + 1);
-        if (CanvasOps[CanvasOps.Count-2].soft)
+        if (CanvasOps.Count > 1)
         {
-            CanvasOps.RemoveAt(CanvasOps.Count - 2);
+            if (CanvasOps[CanvasOps.Count - 2].soft)
+            {
+                CanvasOps.RemoveAt(CanvasOps.Count - 2);
+            }
         }
+
         CanvasOpsTip = CanvasOps.Count;
         ShadowCanvasOpTip = CanvasOpsTip;
 
