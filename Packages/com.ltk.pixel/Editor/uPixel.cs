@@ -15,6 +15,7 @@ public class CanvasHistoryCache
     {
         public int lru;
         public int id;
+        public int frame;
         public Texture2D texture;
     }
 
@@ -32,7 +33,7 @@ public class CanvasHistoryCache
                 oldEntry = i;
                 minLRU = entries[i].lru;
             }
-            if (index == entries[i].id)
+            if (index == entries[i].id && canvas.FrameIndex == entries[i].frame)
             {
                 LRUCounter++;
                 entries[i].lru = LRUCounter;
@@ -40,7 +41,7 @@ public class CanvasHistoryCache
             }
         }
 
-        if (entries.Count >= 30)
+        if (entries.Count > 15)
         {
             entries.RemoveAt(oldEntry);
         }
@@ -49,6 +50,7 @@ public class CanvasHistoryCache
         e.lru = LRUCounter;
         e.id = index;
         e.texture = canvas.GetTextureAtTime(index);
+        e.frame = canvas.FrameIndex;
         entries.Add(e);
         return e.texture;
     }
@@ -659,8 +661,10 @@ public class uPixel : EditorWindow
 
     public void AddFrame(bool duplicate = false)
     {
-        pixelAsset.AddFrame(duplicate);
+        pixelAsset.AddFrame(pixelAsset.FrameIndex, duplicate);
+        NextFrame();
         InitImage();
+        SetDirty(true);
     }
 
     public void NextFrame()
@@ -675,7 +679,8 @@ public class uPixel : EditorWindow
 
     public void GotoFrame(int index)
     {
-        pixelAsset.FrameIndex = (index + pixelAsset.Frames.Count) % pixelAsset.Frames.Count;
+        //pixelAsset.FrameIndex = (index + pixelAsset.Frames.Count) % pixelAsset.Frames.Count;
+        pixelAsset.SetFrame((index + pixelAsset.Frames.Count) % pixelAsset.Frames.Count);
         InitImage();
     }
 

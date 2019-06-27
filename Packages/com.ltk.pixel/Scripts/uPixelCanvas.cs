@@ -18,6 +18,7 @@ public class uPixelCanvasOp
         RemoveFrame,
         PaletteSet,
         BlitOp,
+        SelectFrame,
     };
 
     [System.Serializable]
@@ -50,6 +51,7 @@ public class uPixelCanvasOp
 
     public OpType type = OpType.PixelSet;
     public bool includesSnapshot;
+    public bool soft;
     public bool duplicate;
     public int frame = 0;
     public byte value;
@@ -61,9 +63,9 @@ public class uPixelCanvasOp
 
     public void Execute(uPixelCanvas canvas)
     {
-        canvas.FrameIndex = frame;
         if (type == OpType.PixelSet)
         {
+            canvas.FrameIndex = (frame + canvas.Frames.Count) % canvas.Frames.Count;
             foreach (var p in positions)
             {
                 canvas.GetFrame(frame).PaletteIndices[p] = value;
@@ -71,11 +73,16 @@ public class uPixelCanvasOp
         }
         else if (type == OpType.AddFrame)
         {
-            canvas.AddFrameInternal(duplicate);
+            canvas.AddFrameInternal(frame, duplicate);
         }
         else if (type == OpType.Resize)
         {
+            canvas.FrameIndex = (frame + canvas.Frames.Count) % canvas.Frames.Count;
             canvas.ResizeInternal(resize.size);
+        }
+        else if (type == OpType.SelectFrame)
+        {
+            canvas.FrameIndex = (frame + canvas.Frames.Count) % canvas.Frames.Count;
         }
         else if (type == OpType.PaletteSet)
         {
@@ -199,24 +206,23 @@ public class uPixelCanvas : ScriptableObject
         return (keyindex + 1) * KEYFRAME_RATE;
     }
 
-    public void AddFrame(bool duplicate = false)
+    public void AddFrame(int insertAfter, bool duplicate = false)
     {
         uPixelCanvasOp addFrameOp = new uPixelCanvasOp();
         addFrameOp.type = uPixelCanvasOp.OpType.AddFrame;
-        addFrameOp.frame = FrameIndex;
+        addFrameOp.frame = insertAfter;
         addFrameOp.duplicate = duplicate;
         DoCanvasOperation(addFrameOp);
     }
     //TODO: make private
-    public void AddFrameInternal(bool duplicate = false)
+    public void AddFrameInternal(int insertAfter, bool duplicate = false)
     {
         Frame newFrame = new Frame(this);
         if (duplicate)
         {
             GetCurrentFrame().PaletteIndices.CopyTo(newFrame.PaletteIndices, 0);
         }
-        FrameIndex++;
-        Frames.Insert(FrameIndex, newFrame);
+        Frames.Insert(insertAfter+1, newFrame);
         Debug.Log(Frames.Count);
     }
 
@@ -299,6 +305,15 @@ public class uPixelCanvas : ScriptableObject
     public Frame GetFrame(int index)
     {
         return Frames[index];
+    }
+
+    public void SetFrame(int frame)
+    {
+        uPixelCanvasOp setFrame = new uPixelCanvasOp();
+        setFrame.soft = true;
+        setFrame.frame = frame;
+        setFrame.type = uPixelCanvasOp.OpType.SelectFrame;
+        DoCanvasOperation(setFrame);
     }
 
     public void ResetFrames()
@@ -391,7 +406,7 @@ public class uPixelCanvas : ScriptableObject
         return t;
     }
 
-    public Texture2D GetTextureAtTime(int operation)
+    public Texture2D GetTextureAtTime(int operation, int frame = -1)
     {
         if (operation >= CanvasOpsTip)
         {
@@ -399,7 +414,7 @@ public class uPixelCanvas : ScriptableObject
             // when doing AddFrame
             ResetFrames();
             ExecuteCanvasOps(0, operation);
-            Texture2D tex = ToTexture2D();
+            Texture2D tex = ToTexture2D(frame);
             ExecuteCanvasOps(0, CanvasOpsTip);
             return tex;
         }
@@ -407,7 +422,7 @@ public class uPixelCanvas : ScriptableObject
         {
             ResetFrames();
             ExecuteCanvasOps(0, operation);
-            Texture2D tex = ToTexture2D();
+            Texture2D tex = ToTexture2D(frame);
             ExecuteCanvasOps(operation, CanvasOpsTip);
             return tex;
         }
@@ -446,10 +461,19 @@ public class uPixelCanvas : ScriptableObject
             CanvasOps.RemoveRange(CanvasOpsTip, CanvasOps.Count - CanvasOpsTip);
             TrimKeyFrames();
         }
+        // Soft ops replace each other
+        if (op.soft && CanvasOps[CanvasOps.Count - 1].soft)
+        {
+            CanvasOps.RemoveAt(CanvasOps.Count - 1);
+        }
         CanvasOps.Add(op);
 
         UnityEditor.Undo.RecordObject(this, string.Format("uPixelCanvas: {0}", op.GetType().ToString()));
         ExecuteCanvasOps(CanvasOpsTip, CanvasOpsTip + 1);
+        if (CanvasOps[CanvasOps.Count-2].soft)
+        {
+            CanvasOps.RemoveAt(CanvasOps.Count - 2);
+        }
         CanvasOpsTip = CanvasOps.Count;
         ShadowCanvasOpTip = CanvasOpsTip;
 
