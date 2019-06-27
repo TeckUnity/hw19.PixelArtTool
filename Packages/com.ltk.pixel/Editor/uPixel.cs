@@ -132,6 +132,7 @@ public class uPixel : EditorWindow
     private static Manipulator m_Tool;
     private static Manipulator m_Manipulator;
     private Image m_Image;
+    private Image m_Preview;
     private Dictionary<Type, Manipulator> m_Tools = new Dictionary<Type, Manipulator>();
     private List<Toggle> m_ToolButtons = new List<Toggle>();
     private Buffer m_DrawBuffer;
@@ -141,6 +142,9 @@ public class uPixel : EditorWindow
     private int m_HistoryValue;
     public CanvasHistoryCache m_HistoryCache;
     private Vector2Int[] m_Selection;
+    private List<Texture2D> m_FrameCache = new List<Texture2D>();
+    private int m_FrameCacheIndex;
+    private double lastT;
 
     private bool isDirty;
 
@@ -232,6 +236,15 @@ public class uPixel : EditorWindow
 
     void Update()
     {
+        if (m_FrameCache.Count > 0)
+        {
+            if (EditorApplication.timeSinceStartup - lastT > 1.0 / 15)
+            {
+                m_FrameCacheIndex = (m_FrameCacheIndex + 1) % m_FrameCache.Count;
+                m_Preview.image = m_FrameCache[m_FrameCacheIndex % m_FrameCache.Count];
+                lastT = EditorApplication.timeSinceStartup;
+            }
+        }
         if (!isDirty)
         {
             return;
@@ -368,6 +381,7 @@ public class uPixel : EditorWindow
 
     void OnEnable()
     {
+        lastT = EditorApplication.timeSinceStartup;
         UnityEditor.Undo.postprocessModifications += OnPropMod;
         UnityEditor.Undo.undoRedoPerformed += OnUndoRedo;
         window = this;
@@ -409,12 +423,45 @@ public class uPixel : EditorWindow
         // history.style.top = this.position.height - history.style.height.value.value;
         VisualElement HistoryDrawParent = history.Q<VisualElement>(name: "HistoryDraw");
         HistoryDrawParent.Add(new IMGUIContainer(HistoryDrawOnGUI));
+
         InitImage();
 
         DrawPalette();
+        m_Preview = m_Root.Q<Image>(name: "preview");
 
         m_HistoryValue = pixelAsset.GetHistoryLength();
 
+    }
+
+    private void DrawFrames()
+    {
+        var frames = m_Root.Q<Image>(name: "frames");
+        CacheFrames();
+        for (int i = 0; i < m_FrameCache.Count; i++)
+        {
+            if (i < pixelAsset.FrameIndex - 1 || i > pixelAsset.FrameIndex + 1)
+            {
+                continue;
+            }
+            var image = new Image();
+            image.style.width = 72;
+            image.style.height = 72f * m_FrameCache[i].height / m_FrameCache[i].width;
+            image.image = m_FrameCache[i];
+            if (i == pixelAsset.FrameIndex)
+            {
+                image.style.borderColor = Color.white;
+                image.style.borderLeftWidth = image.style.borderRightWidth = 4;
+                image.style.borderTopWidth = image.style.borderBottomWidth = 4;
+                image.style.borderBottomLeftRadius = image.style.borderBottomRightRadius = 4;
+                image.style.borderTopLeftRadius = image.style.borderTopRightRadius = 4;
+            }
+            frames.Add(image);
+        }
+    }
+
+    private void DrawPreview()
+    {
+        m_Preview.image = m_Image.image;
     }
 
     private void DrawPalette()
@@ -425,7 +472,6 @@ public class uPixel : EditorWindow
         var picker = new ObjectField();
         picker.objectType = typeof(Palette);
         picker.BindProperty(paletteSO);
-        palette.Add(picker);
         // palette.Add(new IMGUIContainer(PaletteDrawOnGUI));
         palette.style.backgroundColor = Color.black;
         var colorsProp = paletteSO.FindProperty("Colors");
@@ -467,7 +513,8 @@ public class uPixel : EditorWindow
                 palette.Add(entry);
             }
         }
-        palette.style.height = (pixelAsset.Palette.Colors.Length / 4) * 18;
+        DrawFrames();
+        // palette.style.height = (pixelAsset.Palette.Colors.Length / 4) * 18;
     }
 
     private void PaletteDrawOnGUI()
@@ -510,12 +557,14 @@ public class uPixel : EditorWindow
     void OnGeometryChanged(GeometryChangedEvent e)
     {
         m_Root.Q<VisualElement>(className: "canvas").style.height = this.position.height;
+        m_Preview.style.left = this.position.width / 2 - 50;
+        m_Preview.style.top = 20;
         var history = m_Root.Q<VisualElement>(name: "History");
         history.style.width = this.position.width;
         history.style.top = this.position.height - 96;
-        var palette = m_Root.Q<VisualElement>(name: "palette");
-        palette.style.left = this.position.xMax - 18 * 4;
-        palette.style.width = 18 * 4;
+        // var palette = m_Root.Q<VisualElement>(name: "palette");
+        // palette.style.left = this.position.xMax - 18 * 4;
+        // palette.style.width = 18 * 4;
         InitImage();
     }
 
@@ -631,6 +680,15 @@ public class uPixel : EditorWindow
         pixelAsset.FreezeFuture = GUILayout.Toggle(pixelAsset.FreezeFuture, "Freeze Future");
     }
 
+    private void CacheFrames()
+    {
+        m_FrameCache.Clear();
+        for (int i = 0; i < pixelAsset.Frames.Count; i++)
+        {
+            m_FrameCache.Add(pixelAsset.ToTexture2D(i));
+        }
+    }
+
     void InitImage()
     {
         if (pixelAsset == null) return;
@@ -657,6 +715,8 @@ public class uPixel : EditorWindow
             colors[i] = Color.clear;
         }
         t.SetPixels32(colors);
+        DrawPreview();
+        CacheFrames();
     }
 
     public void AddFrame(bool duplicate = false)

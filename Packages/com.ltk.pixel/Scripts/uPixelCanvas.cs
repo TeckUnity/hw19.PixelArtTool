@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-using System.Linq;
 #endif
 
 [System.Serializable]
@@ -224,8 +223,7 @@ public class uPixelCanvas : ScriptableObject
         {
             GetCurrentFrame().PaletteIndices.CopyTo(newFrame.PaletteIndices, 0);
         }
-        Frames.Insert(insertAfter+1, newFrame);
-        Debug.Log(Frames.Count);
+        Frames.Insert(insertAfter + 1, newFrame);
     }
 
     public void Resize(Vector2Int newSize)
