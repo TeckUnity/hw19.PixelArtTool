@@ -74,10 +74,7 @@ public class ToolBase : MouseManipulator
             target.CaptureMouse();
             Vector2Int mouseCoord = GetImageCoord(Image, e.localMousePosition);
             Vector2Int[] coords = GetTargetCoords(mouseCoord);
-            foreach (var coord in coords)
-            {
-                uPixel.DrawBuffer(coord);
-            }
+            uPixel.DrawBuffer(coords);
 
             e.StopPropagation();
         }
@@ -91,10 +88,7 @@ public class ToolBase : MouseManipulator
             uPixel.ClearBuffer();
         }
         Vector2Int[] coords = GetTargetCoords(mouseCoord);
-        foreach (var coord in coords)
-        {
-            uPixel.DrawBuffer(coord);
-        }
+        uPixel.DrawBuffer(coords);
 
         if (!m_Active || !target.HasMouseCapture())
         {
@@ -137,10 +131,7 @@ public class ToolBase : MouseManipulator
         Vector2Int mouseCoord = GetImageCoord(Image, e.localMousePosition);
         uPixel.ClearBuffer();
         Vector2Int[] coords = GetTargetCoords(mouseCoord);
-        foreach (var coord in coords)
-        {
-            uPixel.DrawBuffer(coord);
-        }
+        uPixel.DrawBuffer(coords);
         e.StopPropagation();
     }
 

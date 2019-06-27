@@ -28,7 +28,8 @@ public class MarqueeSelectTool : ToolBase
         if (!e.shiftKey)
         {
             m_Selections.Clear();
-            uPixel.ClearOverlay();
+            // uPixel.ClearOverlay();
+            uPixel.ClearSelection();
         }
         m_ClickOrigin = GetImageCoord(Image, e.localMousePosition);
         m_Selections.Add(new Rect(m_ClickOrigin, Vector2Int.zero));
@@ -49,16 +50,19 @@ public class MarqueeSelectTool : ToolBase
         var min = Vector2Int.Min(m_ClickOrigin, imageCoord);
         var max = Vector2Int.Max(m_ClickOrigin, imageCoord);
         currentRect = new Rect(min, max - min);
+        var coords = new List<Vector2Int>();
         foreach (var rect in m_Selections)
         {
-            for (int y = 0; y < rect.height; y++)
+            for (int y = 0; y <= rect.height; y++)
             {
-                for (int x = 0; x < rect.width; x++)
+                for (int x = 0; x <= rect.width; x++)
                 {
-                    uPixel.DrawOverlay(new Vector2Int((int)rect.min.x, (int)rect.min.y) + new Vector2Int(x, y));
+                    coords.Add(new Vector2Int((int)rect.min.x, (int)rect.min.y) + new Vector2Int(x, y));
+                    // uPixel.DrawOverlay(new Vector2Int((int)rect.min.x, (int)rect.min.y) + new Vector2Int(x, y));
                 }
             }
         }
+        uPixel.SetSelection(coords.ToArray());
     }
 
     protected override void OnMouseUp(MouseUpEvent e)
