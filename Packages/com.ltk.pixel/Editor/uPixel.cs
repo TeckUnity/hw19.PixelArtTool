@@ -161,11 +161,6 @@ public class uPixel : EditorWindow
         SetDirty(true);
     }
 
-    //public void FlushBuffer()
-    //{
-    //    m_DrawBuffer.Flush(ref pixelAsset.GetCurrentFrame().PaletteIndices);
-    //    SetDirty(true);
-    //}
     public List<int> GetBrush()
     {
         List<int> pixels = new List<int>();
