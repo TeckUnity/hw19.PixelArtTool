@@ -1,0 +1,431 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8318043d73b6fdc4b92aea1172b9ef1b, type: 3}
+  m_Name: Gun3
+  m_EditorClassIdentifier: 
+  Size: {x: 16, y: 16}
+  Palette: {fileID: -1213729528432062630, guid: 7e34beed35205fa4d96409c6dd4902ec,
+    type: 3}
+  FrameIndex: 0
+  CanvasOpsTip: 23
+  Frames:
+  - PaletteIndices: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000090000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000090000000900000009000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050000000500000009000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005000000010000000900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050000000500000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005000000010000000900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050000000500000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005000000010000000900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050000000500000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005000000010000000900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050000000500000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005000000090000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  CanvasOps:
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 4
+    resize:
+      size: {x: 0, y: 0}
+    positions: 12000000220000003300000043000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 4
+    resize:
+      size: {x: 0, y: 0}
+    positions: 13000000230000003400000044000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 4
+    resize:
+      size: {x: 0, y: 0}
+    positions: 4500000046000000510000005200000053000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 4
+    resize:
+      size: {x: 0, y: 0}
+    positions: 63000000730000008400000094000000a5000000b5000000c6000000d6000000e7000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 4
+    resize:
+      size: {x: 0, y: 0}
+    positions: e8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 4
+    resize:
+      size: {x: 0, y: 0}
+    positions: d8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 4
+    resize:
+      size: {x: 0, y: 0}
+    positions: 5400000065000000750000008600000096000000a7000000b7000000c8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 4
+    resize:
+      size: {x: 0, y: 0}
+    positions: 64000000740000008500000095000000a6000000b6000000c7000000d7000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 0
+    resize:
+      size: {x: 0, y: 0}
+    positions: 46000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 0
+    resize:
+      size: {x: 0, y: 0}
+    positions: 51000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 120000001300000022000000230000003300000034000000430000004400000045000000520000005300000054000000630000006400000065000000730000007400000075000000840000008500000086000000940000009500000096000000a5000000a6000000a7000000b5000000b6000000b7000000c6000000c7000000c8000000d6000000d7000000d8000000e7000000e8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 5
+    resize:
+      size: {x: 0, y: 0}
+    positions: 120000001300000022000000230000003300000034000000430000004400000045000000520000005300000054000000630000006400000065000000730000007400000075000000840000008500000086000000940000009500000096000000a5000000a6000000a7000000b5000000b6000000b7000000c6000000c7000000c8000000d6000000d7000000d8000000e7000000e8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 33000000430000005400000064000000750000008500000096000000a6000000b7000000c7000000d8000000e8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 6500000086000000a7000000c8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 44000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 45000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 34000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 2200000023000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 1200000013000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 9
+    resize:
+      size: {x: 0, y: 0}
+    positions: 12000000130000002200000023000000330000003400000043000000440000004500000054000000640000006500000075000000850000008600000096000000a6000000a7000000b7000000c7000000c8000000d8000000e8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 64000000750000008500000096000000a6000000b7000000c7000000d8000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 33000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 12000000130000002200000023000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  - type: 0
+    includesSnapshot: 0
+    soft: 0
+    duplicate: 0
+    frame: 0
+    value: 1
+    resize:
+      size: {x: 0, y: 0}
+    positions: 2b000000390000003a0000003c000000490000004a0000004b0000004c000000590000005a0000005b0000005c0000005d000000690000006a0000006b0000006c0000006d000000790000007a0000007b0000007c0000007d000000890000008a0000008b0000008c0000008d0000009a0000009b0000009c000000ab000000ac000000bb000000bc000000
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  FreezeFuture: 0

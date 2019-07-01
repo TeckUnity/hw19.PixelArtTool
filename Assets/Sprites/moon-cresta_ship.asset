@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Size: {x: 24, y: 24}
   Palette: {fileID: 6825568966370155278, guid: 27edf9eadf02d4632b32533870e9515f, type: 3}
-  FrameIndex: 2
+  FrameIndex: 0
   CanvasOpsTip: 228
   Frames:
   - PaletteIndices: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060000000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000070000000600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000006000000070000000700000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000000060000000600000007000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000000070000000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000300000003000000030000000300000003000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000200000003000000000000000000000003000000040000000300000000000000000000000300000002000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000300000003000000030000000300000003000000040000000300000003000000030000000300000003000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000002000000020000000300000003000000040000000300000003000000020000000200000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000003000000040000000300000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000020000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -23,2053 +23,3878 @@ MonoBehaviour:
   CanvasOps:
   - type: 1
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 0
     resize:
       size: {x: 24, y: 24}
     positions: 
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 1c020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 04020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: eb010000ec010000ed010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: d2010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: d6010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b9010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b8010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b7010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: bf010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: c0010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: c1010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 9e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 86010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 87010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 6e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: aa010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 92010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 7a010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 91010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: d3010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: d5010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: bb010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: bd010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: be010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: ba010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 9f010000a0010000a1010000a2010000a3010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: a5010000a6010000a7010000a8010000a9010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 88010000890100008a0100008b010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 8d0100008e0100008f01000090010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 7201000073010000740100007501000076010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 89010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 8a010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 8e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 8f010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 8c010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: a4010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: bc010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: d4010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 5c010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 43010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 44010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 45010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 2b010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 2e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 14010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 15010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: fc000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: e5000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: a5010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 2d010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 2c010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 16010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 13010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 12010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: fb000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: fd000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: e4000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: cc000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: b5000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 9c000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: a5010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 2
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 0
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 1c020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 04020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: ec010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: eb010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: ed010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: d2010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: d6010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b9010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b8010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b7010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: bf010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: c0010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: c1010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: aa010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 92010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 7a010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 91010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 9e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 86010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 6e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 87010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: d3010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: d5010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: bb010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: ba010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: bd010000be010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 9f010000a0010000a1010000a2010000a3010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 8f01000090010000a5010000a6010000a7010000a8010000a9010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 8f010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 88010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 8b010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 8d010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 7201000073010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 7501000076010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 74010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 8c010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: a4010000bc010000d4010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 030000001b000000330000004b000000630000007b00000093000000ab000000c3000000db000000f30000000b010000230100003b010000530100006b010000830100009b010000b3010000cb010000e3010000fb010000130200002b020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 2b020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 4b000000630000007b00000093000000ab000000c3000000db000000f30000000b010000230100003b010000530100006b010000830100009b010000b3010000cb010000e3010000fb01000013020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 030000001b00000033000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 5c010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 43010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 44010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 45010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 2a010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 2d010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 2e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 17010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 12010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: fa000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: f9000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: fe000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: e3000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: e5000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: ce000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: b6000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 9d000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 84000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 53000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: 2c010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: 2b010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: 13010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: 15010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: 16010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: fd000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: fc000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: e2000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: ca000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: b5000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: 9c000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 9
     resize:
       size: {x: 0, y: 0}
     positions: 6c000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: cb000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: b4000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: cd000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: c9000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 9f000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 3c000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: b2000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 80000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 9b000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 2
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 1
     value: 0
     resize:
       size: {x: 0, y: 0}
     positions: 
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 1c020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 04020000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: ec010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: eb010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: ed010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: d2010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: d6010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b9010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b8010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: b7010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: bf010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: c0010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: c1010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: aa010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 91010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 92010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 7a010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 9e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 86010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 87010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 2
     resize:
       size: {x: 0, y: 0}
     positions: 6e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: d3010000d4010000d5010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: ba010000bb010000bc010000bd010000be010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 9f010000a0010000a1010000a2010000a3010000a4010000a5010000a6010000a7010000a8010000a9010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 88010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 90010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 8b010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 8c0100008d010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 3
     resize:
       size: {x: 0, y: 0}
     positions: 7201000073010000740100007501000076010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 8c010000a4010000bc010000d4010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 5c010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 43010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 45010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 2c010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 2b010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 2e010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 8
     resize:
       size: {x: 0, y: 0}
     positions: 44010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 8
     resize:
       size: {x: 0, y: 0}
     positions: 2d010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 15010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 12010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: fa000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: fe000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: e5000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: e3000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: cc000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: b5000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: ca000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 2a010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 11010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 14010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 17010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 13010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 16010000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: fd000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: fc000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: fb000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: e4000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: cd000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: b4000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 9d000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: b1000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 82000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 69000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 7f000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: e8000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: ce000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: c7000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 99000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 9f000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 88000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 84000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 6b000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 52000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 3b000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 6e000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 7
     resize:
       size: {x: 0, y: 0}
     positions: 0d000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 26000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 29000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 22000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 3d000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 6
     resize:
       size: {x: 0, y: 0}
     positions: 57000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 50000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
   - type: 0
     includesSnapshot: 0
+    soft: 0
     duplicate: 0
     frame: 2
     value: 4
     resize:
       size: {x: 0, y: 0}
     positions: 66000000
-    subOps: []
+    group:
+      pixelSets: []
+    palette: {fileID: 0}
+    blitData:
+      offset: {x: 0, y: 0}
+      size: {x: 0, y: 0}
+      pixels: []
+      frameIndex: 0
+  FreezeFuture: 0
