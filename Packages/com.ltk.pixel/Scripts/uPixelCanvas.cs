@@ -129,18 +129,18 @@ public class uPixelCanvas : ScriptableObject
     public class Frame
     {
         private uPixelCanvas m_parentCanvas;
-        public int[] PaletteIndices;
+        public byte[] PaletteIndices;
 
         public Frame(uPixelCanvas parentCanvas)
         {
             m_parentCanvas = parentCanvas;
-            PaletteIndices = new int[m_parentCanvas.Size.x * m_parentCanvas.Size.y];
+            PaletteIndices = new byte[m_parentCanvas.Size.x * m_parentCanvas.Size.y];
         }
 
         public Frame(uPixelCanvas parentCanvas, Vector2Int overrideSize)
         {
             m_parentCanvas = parentCanvas;
-            PaletteIndices = new int[overrideSize.x * overrideSize.y];
+            PaletteIndices = new byte[overrideSize.x * overrideSize.y];
         }
     }
 
@@ -163,7 +163,7 @@ public class uPixelCanvas : ScriptableObject
         foreach (var frame in Frames)
         {
             Frame newframe = new Frame(this, Size);
-            newframe.PaletteIndices = frame.PaletteIndices.Clone() as int[];
+            newframe.PaletteIndices = frame.PaletteIndices.Clone() as byte[];
             newkey.Frames.Add(frame);
         }
         Keyframes.Add(newkey);
@@ -197,7 +197,7 @@ public class uPixelCanvas : ScriptableObject
         foreach (var frame in Keyframes[keyindex].Frames)
         {
             Frame newframe = new Frame(this, Keyframes[keyindex].Size);
-            newframe.PaletteIndices = frame.PaletteIndices.Clone() as int[];
+            newframe.PaletteIndices = frame.PaletteIndices.Clone() as byte[];
             Frames.Add(newframe);
         }
 
@@ -245,7 +245,7 @@ public class uPixelCanvas : ScriptableObject
         int bottomPad = delta.y - topPad;
         for (int f = 0; f < Frames.Count; f++)
         {
-            int[] newIndices = new int[newSize.x * newSize.y];
+            byte[] newIndices = new byte[newSize.x * newSize.y];
             for (int y = 0; y < newSize.y; y++)
             {
                 for (int x = 0; x < newSize.x; x++)
@@ -253,7 +253,7 @@ public class uPixelCanvas : ScriptableObject
                     int oldY = y - bottomPad;
                     int oldX = x - leftPad;
                     int idx = oldY * Size.x + oldX;
-                    newIndices[y * newSize.x + x] = oldY < 0 || oldY >= Size.y || oldX < 0 || oldX >= Size.x ? 0 : Frames[f].PaletteIndices[idx];
+                    newIndices[y * newSize.x + x] = (byte)(oldY < 0 || oldY >= Size.y || oldX < 0 || oldX >= Size.x ? 0 : Frames[f].PaletteIndices[idx]);
                 }
             }
             Frames[f].PaletteIndices = newIndices;
@@ -290,7 +290,7 @@ public class uPixelCanvas : ScriptableObject
     {
         FrameIndex = blitData.frameIndex;
         var currentFrame = GetCurrentFrame();
-        currentFrame.PaletteIndices = new int[blitData.pixels.Length];
+        currentFrame.PaletteIndices = new byte[blitData.pixels.Length];
         for (int i = 0; i < blitData.pixels.Length; i++)
         {
             currentFrame.PaletteIndices[i] = Palette.GetIndexOfColor(blitData.pixels[i]);
@@ -341,11 +341,11 @@ public class uPixelCanvas : ScriptableObject
     {
         if (GetCurrentFrame().PaletteIndices.Length != Size.x * Size.y)
         {
-            GetCurrentFrame().PaletteIndices = new int[Size.x * Size.y];
+            GetCurrentFrame().PaletteIndices = new byte[Size.x * Size.y];
         }
         for (int i = 0; i < GetCurrentFrame().PaletteIndices.Length; i++)
         {
-            GetCurrentFrame().PaletteIndices[i] = Random.Range(0, Palette.Colors.Length);
+            GetCurrentFrame().PaletteIndices[i] = (byte)Random.Range(0, Palette.Colors.Length);
         }
     }
 

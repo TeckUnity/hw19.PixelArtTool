@@ -40,7 +40,7 @@ public class Palette : ScriptableObject
 {
     public Color32[] ReducedColourSet;
     public Color32[] Colors;
-    private Dictionary<Color32, int> m_ColorIndexDict; // just optimisation to get index for color quickly. Must be kept aligned with Colors
+    private Dictionary<Color32, byte> m_ColorIndexDict; // just optimisation to get index for color quickly. Must be kept aligned with Colors
 
     private void OnEnable()
     {
@@ -61,10 +61,10 @@ public class Palette : ScriptableObject
 
     private void PopulateColorIndexDict()
     {
-        m_ColorIndexDict = new Dictionary<Color32, int>(new Color32Comparer());
+        m_ColorIndexDict = new Dictionary<Color32, byte>(new Color32Comparer());
         for (int i = 0; i < Colors.Length; i++)
         {
-            m_ColorIndexDict[Colors[i]] = i;
+            m_ColorIndexDict[Colors[i]] = (byte)i;
         }
     }
 
@@ -123,7 +123,7 @@ public class Palette : ScriptableObject
                 int gRange = gMax - gMin;
                 int bRange = bMax - bMin;
 
-                Comparer<Color32> compare = Comparer < Color32 > .Create(new Comparison<Color32>((lhs, rhs) => lhs.b - rhs.b));
+                Comparer<Color32> compare = Comparer<Color32>.Create(new Comparison<Color32>((lhs, rhs) => lhs.b - rhs.b));
 
                 if (rRange > gRange)
                 {
@@ -145,7 +145,7 @@ public class Palette : ScriptableObject
             {
                 splits[i].start = i * bucketSize;
                 splits[i].count = bucketSize;
-                if (splits[i].start+bucketSize > Colors.Length)
+                if (splits[i].start + bucketSize > Colors.Length)
                 {
                     splits[i].count = Colors.Length - splits[i].start;
                 }
@@ -161,7 +161,7 @@ public class Palette : ScriptableObject
             int r = colorSet[s.start].r;
             int g = colorSet[s.start].g;
             int b = colorSet[s.start].b;
-            for (int c = s.start+1; c < s_end; ++c)
+            for (int c = s.start + 1; c < s_end; ++c)
             {
                 r += colorSet[c].r;
                 g += colorSet[c].g;
@@ -172,7 +172,7 @@ public class Palette : ScriptableObject
         }
     }
 
-    public int GetIndexOfColor(Color32 color)
+    public byte GetIndexOfColor(Color32 color)
     {
         // TODO what if we can't find the color?
         return m_ColorIndexDict[color];
