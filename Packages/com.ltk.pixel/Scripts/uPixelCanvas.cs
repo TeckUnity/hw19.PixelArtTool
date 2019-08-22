@@ -388,6 +388,7 @@ public class uPixelCanvas : ScriptableObject
     {
         Texture2D t = new Texture2D(Size.x, Size.y);
         t.filterMode = FilterMode.Point;
+
         // Sanity check we have at least one frame and a palette
         if (Frames.Count > 0 && Palette != null)
         {
@@ -395,9 +396,11 @@ public class uPixelCanvas : ScriptableObject
             if (frameOverride >= 0 && frameOverride < Frames.Count)
                 theFrame = Frames[frameOverride];
             Color32[] colors = t.GetPixels32();
+
             for (int i = 0; i < theFrame.PaletteIndices.Length; i++)
             {
-                colors[i] = Palette.Colors[theFrame.PaletteIndices[i]];
+                if (i < colors.Length)
+                    colors[i] = Palette.Colors[theFrame.PaletteIndices[i]];
             }
 
             t.SetPixels32(colors);

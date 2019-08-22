@@ -272,10 +272,12 @@ public class uPixel : EditorWindow
         {
             pixelAsset = _pixelAsset;
         }
-        if (pixelAsset.Palette == null)
+
+        if ( (pixelAsset != null) && (pixelAsset.Palette == null))
         {
             pixelAsset.Palette = AssetDatabase.LoadAssetAtPath<Palette>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:Palette").First()));
         }
+
         GetWindow<uPixel>("uPixel");
     }
 
